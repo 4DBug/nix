@@ -10,11 +10,17 @@
         neofetch
         git
         btop
+        nodejs
+        luau
         luajit
         luarocks
         nicotine-plus
         discord
         zed-editor
+        blender
+        obs-studio
+        kdenlive
+        furnace
     ];
   };
 }

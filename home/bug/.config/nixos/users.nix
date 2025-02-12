@@ -18,9 +18,11 @@
         discord
         zed-editor
         blender
+        plasticity
         obs-studio
         kdenlive
         furnace
+        obsidian
     ];
   };
 }

@@ -3,7 +3,6 @@
 {
   hardware = {
     # open gl
-    opengl.enable = true;
     graphics.enable = true;
 
     # nvidia drivers

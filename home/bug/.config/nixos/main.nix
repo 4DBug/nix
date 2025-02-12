@@ -3,7 +3,6 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ./boot.nix
     ./environment.nix
     ./hardware.nix

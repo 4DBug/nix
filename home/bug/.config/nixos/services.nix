@@ -2,9 +2,12 @@
 
 {
   services = {
+    # touchpad
+    libinput.enable = true;
+
     # openssh
     openssh.enable = true;
-    
+
     # printing
     printing.enable = true;
 
@@ -17,6 +20,12 @@
       # jack.enable = true;
     };
 
+    # auto login
+    displayManager.autoLogin = {
+      enable = true;
+      user = "bug";
+    };
+
     # x11
     xserver = {
       enable = true;
@@ -24,26 +33,15 @@
       # enable nvidia drivers
       videoDrivers = ["nvidia"];
 
-      # touchpad
-      libinput.enable = true;
-
       # x11 keymap
       xkb = {
         layout = "us";
         variant = "";
       };
 
-      displayManager = {
-        # gnome de
-        gdm.enable = true;
-        gnome.enable = true;
-
-        # auto login
-        autoLogin = {
-          enable = true;
-          user = "bug";
-        }
-      };
+      # gnome de
+      desktopManager.gnome.enable = true;
+      displayManager.gdm.enable = true;
     };
 
     # flatpak

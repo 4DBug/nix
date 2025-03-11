@@ -163,14 +163,5 @@
     systemd = {
         services."getty@tty1".enable = false;
         services."autovt@tty1".enable = false;
-
-        user.services.sync = {
-            description = "initiate syncthing";
-            serviceConfig.PassEnvironment = "DISPLAY";
-            script = ''
-                syncthing
-            '';
-            wantedBy = [ "multi-user.target" ]; 
-        };
     };
 }

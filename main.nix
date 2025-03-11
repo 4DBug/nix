@@ -26,8 +26,6 @@
 
             obsidian
 
-            ollama
-
             vesktop
             nicotine-plus
             furnace

@@ -1,10 +1,9 @@
-
 { config, lib, pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    ../../home/bug/.config/nixos/main.nix
+    /home/bug/nix/main.nix
   ];
 
   # nix os release version

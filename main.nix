@@ -37,7 +37,7 @@
             remotePlay.openFirewall = true;
             dedicatedServer.openFirewall = true;
             localNetworkGameTransfers.openFirewall = true;
-        };  
+        };
     };
 
     nixpkgs.config.allowUnfree = true;
@@ -110,7 +110,8 @@
         syncthing = {
             enable = true;
             user = "bug";
-            group = "users";
+            group = "wheel";
+            dataDir = "/home/bug/";
         };
     };
 
@@ -159,6 +160,10 @@
     };
 
     security.rtkit.enable = true;
+    security.sudo = {
+        enable = true;
+        wheelNeedsPassword = false;
+    };
 
     systemd = {
         services."getty@tty1".enable = false;

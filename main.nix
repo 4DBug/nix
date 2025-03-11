@@ -8,24 +8,29 @@
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
             vscode
-            neofetch
             git
-            nodejs
+
+            python3
             luau
-            luajit
+            luajit 
             luarocks
-            nicotine-plus
-            vesktop
+            nodejs
+
             blender
             plasticity
-            obsidian
-            ollama
-            gnome-tweaks
-            syncthing
-            wine
-            furnace
-            python3
+
+            neofetch
             tree
+            gnome-tweaks
+            wine
+
+            obsidian
+
+            ollama
+
+            vesktop
+            nicotine-plus
+            furnace
         ];
     };
 
@@ -106,6 +111,8 @@
 
             jack.enable = true;
         };
+
+        ollama.enable = true;
 
         syncthing = {
             enable = true;

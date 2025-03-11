@@ -159,10 +159,13 @@
         };
     };
 
-    security.rtkit.enable = true;
-    security.sudo = {
-        enable = true;
-        wheelNeedsPassword = false;
+    security = {
+        rtkit.enable = true;
+
+        sudo = {
+            enable = true;
+            wheelNeedsPassword = false;
+        };
     };
 
     systemd = {

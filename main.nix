@@ -12,8 +12,7 @@
 
             python3
             luau
-            luajit 
-            luarocks
+            luajit
             nodejs
 
             blender
@@ -29,6 +28,8 @@
             vesktop
             nicotine-plus
             furnace
+
+            pulseaudio
         ];
     };
 
@@ -46,8 +47,8 @@
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = with pkgs; [
-        #  vim 
-        #  wget
+        wget
+        gcc
     ];
 
     services = {
@@ -69,10 +70,18 @@
                 "com.jeffser.Alpaca"
                 "org.vinegarhq.Vinegar"
                 "com.bambulab.BambuStudio"
-                "com.boxy_svg.BoxySVG"
+                #"com.boxy_svg.BoxySVG"
                 "org.gabmus.gfeeds"
                 "org.gnome.Decibels"
+                "org.pipewire.Helvum"
             ];
+        };
+
+        displayManager = {
+            autoLogin = {
+                enable = true;
+                user = "bug";
+            };
         };
 
         xserver = {
@@ -80,16 +89,8 @@
 
             videoDrivers = ["nvidia"];
 
+            displayManager.gdm.enable = true;
             desktopManager.gnome.enable = true;
-
-            displayManager = {
-                gdm.enable = true;
-
-                autoLogin = {
-                    enable = true;
-                    user = "bug";
-                };
-            };
 
             xkb = {
                 layout = "us";
@@ -110,7 +111,10 @@
             jack.enable = true;
         };
 
-        ollama.enable = true;
+        ollama = {
+            enable = true;
+            acceleration = "cuda";
+        };
 
         syncthing = {
             enable = true;

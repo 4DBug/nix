@@ -11,6 +11,7 @@
             git
 
             python3
+
             luau
             luajit
             nodejs
@@ -70,7 +71,7 @@
                 "com.jeffser.Alpaca"
                 "org.vinegarhq.Vinegar"
                 "com.bambulab.BambuStudio"
-                #"com.boxy_svg.BoxySVG"
+                # "com.boxy_svg.BoxySVG"
                 "org.gabmus.gfeeds"
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"

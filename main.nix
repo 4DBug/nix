@@ -8,7 +8,6 @@
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
             vscode
-            git
 
             python3
 
@@ -32,10 +31,8 @@
 
             pulseaudio
 
-            rpi-imager
+            # rpi-imager
             rpiboot
-
-            nmap
         ];
     };
 
@@ -53,12 +50,11 @@
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = with pkgs; [
+        git
         wget
         gcc
-        # cudatoolkit
+        nmap
     ];
-
-    # virtualisation.waydroid.enable = true;
 
     services = {
         flatpak = {

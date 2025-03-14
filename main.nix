@@ -31,6 +31,11 @@
             furnace
 
             pulseaudio
+
+            rpi-imager
+            rpiboot
+
+            nmap
         ];
     };
 
@@ -50,7 +55,10 @@
     environment.systemPackages = with pkgs; [
         wget
         gcc
+        # cudatoolkit
     ];
+
+    # virtualisation.waydroid.enable = true;
 
     services = {
         flatpak = {

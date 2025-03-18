@@ -9,8 +9,8 @@
         packages = with pkgs; [
             vscode
 
+            go
             python3
-
             luau
             luajit
             nodejs
@@ -33,10 +33,28 @@
 
             # rpi-imager
             rpiboot
+
+            mapscii
+
+            cloudflared
         ];
     };
 
     programs = {
+        bash.shellAliases = {
+            rebuild = "sudo nixos-rebuild switch --impure";
+            pi = "ssh $(nmap -sn 192.168.1.0/24 | grep \"pi.home\" | grep -oE '([0-9]{1,3}\\.){3}[0-9]{1,3}')";
+            pico = "ssh pico.sh";
+            # tuns name port
+            tuns = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: tun name port\"; exit 1; fi; 
+if [[ \"$1\" =~ ^[0-9]+$ ]]; then port=\"$1\"; name=\"$2\"; 
+elif [[ \"$2\" =~ ^[0-9]+$ ]]; then port=\"$2\"; name=\"$1\"; 
+else echo \"Error: One argument must be a number (port)\"; exit 1; fi; 
+ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
+            # pgs name directory
+            pgs = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: pgs NAME DIRECTORY\"; exit 1; fi; rsync -rv \"$2\" pgs.sh:/\"$1\"'\'' _";
+        };
+
         firefox.enable = true;
 
         steam = {
@@ -47,6 +65,8 @@
         };
     };
 
+    # virtualisation.waydroid.enable = true;
+
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = with pkgs; [
@@ -54,6 +74,8 @@
         wget
         gcc
         nmap
+        inetutils
+        sshs
     ];
 
     services = {
@@ -72,6 +94,7 @@
                 { appId = "com.github.tchx84.Flatseal"; origin = "flathub";  }
                 { flatpakref = "https://sober.vinegarhq.org/sober.flatpakref"; sha256 = "1pj8y1xhiwgbnhrr3yr3ybpfis9slrl73i0b1lc9q89vhip6ym2l"; }
                 "dev.qwery.AddWater"
+                "io.github.Foldex.AdwSteamGtk"
                 "com.jeffser.Alpaca"
                 "org.vinegarhq.Vinegar"
                 "com.bambulab.BambuStudio"
@@ -79,6 +102,7 @@
                 "org.gabmus.gfeeds"
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
+                "io.github.giantpinkrobots.flatsweep"
             ];
         };
 

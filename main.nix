@@ -76,6 +76,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
         nmap
         inetutils
         sshs
+        gnumake
     ];
 
     services = {
@@ -193,7 +194,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             powerManagement.finegrained = false;
             open = false;
             nvidiaSettings = true;
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+            package = config.boot.kernelPackages.nvidiaPackages.production;
         };
     };
 

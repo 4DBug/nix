@@ -43,7 +43,7 @@
     programs = {
         bash.shellAliases = {
             rebuild = "sudo nixos-rebuild switch --impure";
-            pi = "ssh $(nmap -sn 192.168.1.0/24 | grep \"pi.home\" | grep -oE '([0-9]{1,3}\\.){3}[0-9]{1,3}')";
+            pi = "ssh $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
             pico = "ssh pico.sh";
             # tuns name port
             tuns = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: tun name port\"; exit 1; fi; 

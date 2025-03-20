@@ -61,12 +61,14 @@
             pid = "pi \"cd $(pwd) && bash\"";
 
             pico = "ssh pico.sh";
+
             # tuns name port
             tuns = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: tun name port\"; exit 1; fi; 
 if [[ \"$1\" =~ ^[0-9]+$ ]]; then port=\"$1\"; name=\"$2\"; 
 elif [[ \"$2\" =~ ^[0-9]+$ ]]; then port=\"$2\"; name=\"$1\"; 
 else echo \"Error: One argument must be a number (port)\"; exit 1; fi; 
 ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
+
             # pgs name directory
             pgs = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: pgs NAME DIRECTORY\"; exit 1; fi; rsync -rv \"$2\" pgs.sh:/\"$1\"'\'' _";
         };

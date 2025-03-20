@@ -10,22 +10,35 @@
             vscode
 
             go
-            python3
+
+            (python3.withPackages (ps: with ps; [
+                pip
+            ]))
+
             luau
-            luajit
+
+            (luajit.withPackages (ps: with ps; [
+                luasocket
+                bit32
+                luautf8
+                jsregexp
+            ]))
+
             nodejs
 
             blender
             plasticity
 
             neofetch
+            fastfetch
+
             tree
             gnome-tweaks
             wine
 
             obsidian
 
-            vesktop
+            # vesktop
             nicotine-plus
             furnace
 
@@ -43,7 +56,7 @@
     programs = {
         bash.shellAliases = {
             rebuild = "sudo nixos-rebuild switch --impure";
-            pi = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}') \"cd \\$(pwd) && bash\"";
+            pi = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
             pico = "ssh pico.sh";
             # tuns name port
             tuns = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: tun name port\"; exit 1; fi; 
@@ -77,6 +90,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
         inetutils
         sshs
         gnumake
+        evtest
     ];
 
     services = {
@@ -105,6 +119,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
                 "io.github.giantpinkrobots.flatsweep"
+                "dev.vencord.Vesktop"
             ];
         };
 

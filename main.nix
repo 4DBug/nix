@@ -1,7 +1,8 @@
 
 { config, lib, pkgs, ... }:
 
-{
+{   
+
     users.users.bug = {
         isNormalUser = true;
         description = "Bug";
@@ -13,6 +14,8 @@
 
             (python3.withPackages (ps: with ps; [
                 pip
+                pynput
+                python-uinput
             ]))
 
             luau
@@ -23,7 +26,7 @@
                 luautf8
                 jsregexp
             ]))
-
+    
             nodejs
 
             blender
@@ -38,7 +41,7 @@
 
             obsidian
 
-            # vesktop
+            #vesktop
             nicotine-plus
             furnace
 
@@ -50,15 +53,19 @@
             mapscii
 
             cloudflared
+
+            base16-schemes
         ];
     };
+
+    programs.dconf.enable = lib.mkDefault true;
 
     programs = {
         bash.shellAliases = {
             rebuild = "sudo nixos-rebuild switch --impure";
 
-            pi = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
-            pid = "pi \"cd $(pwd) && bash\"";
+            pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
+            pi = "pissh \"cd $(pwd) && bash\"";
 
             pico = "ssh pico.sh";
 
@@ -87,7 +94,10 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
 
     nixpkgs.config.allowUnfree = true;
 
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     environment.systemPackages = with pkgs; [
+        home-manager
         git
         wget
         gcc

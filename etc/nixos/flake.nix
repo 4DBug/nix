@@ -9,7 +9,7 @@
       system = "x86_64-linux";
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nix = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           flatpaks.nixosModules.nix-flatpak

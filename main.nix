@@ -41,7 +41,7 @@
 
             obsidian
 
-            #vesktop
+            vesktop
             nicotine-plus
             furnace
 
@@ -62,7 +62,7 @@
 
     programs = {
         bash.shellAliases = {
-            rebuild = "sudo nixos-rebuild switch --impure";
+            rebuild = "sudo nixos-rebuild switch --impure && home-manager switch --impure";
 
             pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
             pi = "pissh \"cd $(pwd) && bash\"";
@@ -106,6 +106,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
         sshs
         gnumake
         evtest
+        gnomeExtensions.arcmenu
+        gnomeExtensions.forge
     ];
 
     services = {
@@ -134,7 +136,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
                 "io.github.giantpinkrobots.flatsweep"
-                "dev.vencord.Vesktop"
+                #"dev.vencord.Vesktop"
             ];
         };
 

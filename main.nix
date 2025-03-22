@@ -2,7 +2,6 @@
 { config, lib, pkgs, ... }:
 
 {   
-
     users.users.bug = {
         isNormalUser = true;
         description = "Bug";
@@ -32,6 +31,8 @@
             blender
             plasticity
 
+            kdenlive
+
             neofetch
             fastfetch
 
@@ -55,6 +56,8 @@
             cloudflared
 
             base16-schemes
+
+            ptyxis
         ];
     };
 
@@ -106,9 +109,30 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
         sshs
         gnumake
         evtest
+
         gnomeExtensions.arcmenu
-        gnomeExtensions.forge
+        gnomeExtensions.rounded-window-corners-reborn
+        gnomeExtensions.just-perfection
+        gnomeExtensions.clipboard-history
     ];
+
+    fonts = {
+        fontDir.enable = true;
+        enableDefaultPackages = true;
+
+        packages = with pkgs; [ 
+            twitter-color-emoji
+        ];
+        
+        fontconfig = {
+            enable = true;
+            useEmbeddedBitmaps = true;
+
+            defaultFonts = {
+                emoji = [ "Twitter Color Emoji" ];
+            };
+        };
+    };
 
     services = {
         flatpak = {
@@ -119,7 +143,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
                 location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
             }];
 
-            update.auto.enable = false;
+            update.auto.enable = true;
             uninstallUnmanaged = false;
 
             packages = [
@@ -136,7 +160,6 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
                 "io.github.giantpinkrobots.flatsweep"
-                #"dev.vencord.Vesktop"
             ];
         };
 
@@ -227,7 +250,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             powerManagement.finegrained = false;
             open = false;
             nvidiaSettings = true;
-            package = config.boot.kernelPackages.nvidiaPackages.production;
+            package = config.boot.kernelPackages.nvidiaPackages.beta;
         };
     };
 

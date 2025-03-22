@@ -1,17 +1,12 @@
-
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
     users.users.bug.packages = with pkgs; [
+        # ide
         vscode
+        zed-editor
 
-        go
-
-        (python3.withPackages (ps: with ps; [
-            pip
-            pynput
-            python-uinput
-        ]))
+        # languages
 
         luau
 
@@ -22,36 +17,44 @@
             jsregexp
         ]))
 
+        go
+
+        (python3.withPackages (ps: with ps; [
+            pip
+            pynput
+            python-uinput
+        ]))
+
         nodejs
 
+        # 3D
         blender
         plasticity
 
+        # video
         kdenlive
 
+        # markdown / notes
+        obsidian
+
+        # social
+        vesktop
+
+        # music
+        nicotine-plus
+        furnace
+        pulseaudio
+
+        # utilties
+        mapscii
+        cloudflared
+        base16-schemes
+        ptyxis
+        ## rpi-imager
         neofetch
         fastfetch
-
         tree
         gnome-tweaks
         wine
-
-        obsidian
-
-        vesktop
-        nicotine-plus
-        furnace
-
-        pulseaudio
-
-        # rpi-imager
-
-        mapscii
-
-        cloudflared
-
-        base16-schemes
-
-        ptyxis
     ];
 }

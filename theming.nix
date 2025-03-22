@@ -1,15 +1,14 @@
+{ pkgs, ... }:
 
-{ config, pkgs, ... }:
-
-{  
+{
     fonts = {
         fontDir.enable = true;
         enableDefaultPackages = true;
 
-        packages = with pkgs; [ 
+        packages = with pkgs; [
             twitter-color-emoji
         ];
-        
+
         fontconfig = {
             enable = true;
             useEmbeddedBitmaps = true;

@@ -1,6 +1,6 @@
-{ config, ... }:
+{ ... }:
 
-{  
+{
     time.timeZone = "America/Chicago";
 
     i18n = {

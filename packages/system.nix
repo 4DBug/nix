@@ -1,16 +1,26 @@
-
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
     environment.systemPackages = with pkgs; [
         home-manager
+
         git
         wget
+
+        # compiling
         gcc
+        gnumake
+
+        # network
         nmap
         inetutils
         sshs
-        gnumake
+
+        # input testing
         evtest
+
+        # nix language server
+        nixd
+        nil
     ];
 }

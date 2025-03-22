@@ -1,10 +1,8 @@
+{ ... }:
 
-
-{ config, ... }:
-
-{  
+{
     networking = {
-        hostName = "nix"; 
+        hostName = "nix";
         networkmanager.enable = true;
     };
 }

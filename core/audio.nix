@@ -1,6 +1,6 @@
-{ config, ... }:
+{ ... }:
 
-{  
+{
     hardware.pulseaudio.enable = false;
 
     services.pipewire = {

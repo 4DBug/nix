@@ -8,6 +8,8 @@
         ./flatpak.nix
     ];
 
+    nixpkgs.config.allowUnfree = true;
+    
     services.flatpak = {
         enable = true;
 

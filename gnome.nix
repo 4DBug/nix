@@ -1,11 +1,11 @@
 { config, pkgs, ... }:
 
 {
-    environment.systemPackages = with pkgs; [
-        gnomeExtensions.arcmenu
-        gnomeExtensions.rounded-window-corners-reborn
-        gnomeExtensions.just-perfection
-        gnomeExtensions.clipboard-history
+    environment.systemPackages = with pkgs.gnomeExtensions; [
+        arcmenu
+        rounded-window-corners-reborn
+        just-perfection
+        clipboard-history
     ];
 
     services = {

@@ -3,6 +3,7 @@
 
 {
     imports = [
+        ./nix.nix
         ./user.nix
         ./audio.nix
         ./graphics.nix

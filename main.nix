@@ -49,7 +49,6 @@
             pulseaudio
 
             # rpi-imager
-            # rpiboot
 
             mapscii
 

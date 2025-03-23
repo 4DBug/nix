@@ -23,6 +23,9 @@
 
     programs = {
         bash.shellAliases = {
+            fetch = "fastfetch --file ~/Pictures/Ansi/nix.ans";
+            neofetch = "fetch";
+
             rebuild = "sudo nixos-rebuild switch --impure && home-manager switch --impure";
 
             pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";

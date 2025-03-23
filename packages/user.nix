@@ -7,7 +7,6 @@
         zed-editor
 
         # languages
-
         luau
 
         (luajit.withPackages (ps: with ps; [

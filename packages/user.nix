@@ -50,7 +50,6 @@
         base16-schemes
         ptyxis
         ## rpi-imager
-        neofetch
         fastfetch
         tree
         gnome-tweaks

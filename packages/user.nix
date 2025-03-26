@@ -14,6 +14,7 @@
             bit32
             luautf8
             jsregexp
+            #lgi
         ]))
 
         go

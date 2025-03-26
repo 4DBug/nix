@@ -23,7 +23,7 @@
 
     programs = {
         bash.shellAliases = {
-            fetch = "fastfetch --file ~/Pictures/Ansi/nix.logo";
+            fetch = "fastfetch --file ~/Pictures/Ansi/nix.ans";
             neofetch = "fetch";
 
             rebuild = "sudo nixos-rebuild switch --impure && home-manager switch --impure";

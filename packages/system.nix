@@ -22,7 +22,5 @@
         # nix language server
         nixd
         nil
-
-        docker
     ];
 }

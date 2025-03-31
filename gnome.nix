@@ -32,5 +32,12 @@
     systemd = {
         services."getty@tty1".enable = false;
         services."autovt@tty1".enable = false;
+
+        targets = {
+            sleep.enable = false;
+            suspend.enable = false;
+            hibernate.enable = false;
+            hybrid-sleep.enable = false;
+        };
     };
 }

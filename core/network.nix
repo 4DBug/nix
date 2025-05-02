@@ -3,6 +3,7 @@
 {
     networking = {
         hostName = "nix";
-        networkmanager.enable = true;
+        useNetworkd = true;
+        networkmanager.enable = false;
     };
 }

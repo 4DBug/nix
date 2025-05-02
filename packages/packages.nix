@@ -7,8 +7,19 @@
         ./flatpak.nix
     ];
 
-    nixpkgs.config.allowUnfree = true;
-
+    nixpkgs = {
+        config = {
+            allowUnfree = true;
+            #cudaSupport = true;
+        };
+        
+        overlays = [
+            (self: super: {
+                plasticity = self.callPackage ./plasticity.nix { };
+            })
+        ];
+    };
+    
     services.flatpak = {
         enable = true;
 
@@ -54,8 +65,32 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             dedicatedServer.openFirewall = true;
             localNetworkGameTransfers.openFirewall = true;
         };
-    };
 
+        nix-ld = {
+            enable = true;
+            libraries = with pkgs; [
+                gtk3
+                glib
+                alsa-lib
+                libGL
+
+                libGLU
+                mesa
+                gcc
+                zlib
+                xorg.libX11
+                fontconfig
+                pcre2
+                xorg.libXext
+                gcc
+                xorg.libxcb
+                pkgs.qt5.full pkgs.freetype pkgs.fontconfig
+                pkgs.xorg.libX11 pkgs.xorg.libxcb pkgs.xorg.libXext
+                pkgs.xorg.libXrender
+            ];
+        };
+    };
+    
     services = {
         printing.enable = true;
 

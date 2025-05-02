@@ -3,6 +3,8 @@
 {
     environment.systemPackages = with pkgs; [
         home-manager
+        comma
+        nix-index
 
         git
         wget

@@ -14,12 +14,18 @@
             bit32
             luautf8
             jsregexp
-            #lgi
+            lgi
+            gtk3
+            gobject-introspection
         ]))
 
         go
 
         (python3.withPackages (ps: with ps; [
+            unidecode
+            discordpy
+            setuptools
+
             pip
             pynput
             python-uinput
@@ -69,9 +75,19 @@
         #    jsonschema
         #    scikit-image
 
+            pyautogui
+            pygobject3
+            pycairo
+
+            tkinter
+            pyautogui
+        
+            numpy
+            scipy
+            imageio
         ]))
 
-        #nodejs
+        nodejs
 
         # 3D
         (blender.withPackages (ps: with ps; [
@@ -113,10 +129,24 @@
         tree
         gnome-tweaks
         wine
+        wine64
         xclicker
         gh
         scanmem
         openrgb
         samrewritten
+        testdisk
+        impression
+        bambu-studio
+        sushi
+        #lutris
+        resources
+        discord
+        authenticator
+        eyedropper
+        turtle
+        #xonotic
+        apostrophe
+        buffer
     ];
 }

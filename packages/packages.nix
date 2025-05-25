@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 {
     imports = [
@@ -31,6 +31,14 @@
         update.auto.enable = true;
         uninstallUnmanaged = false;
     };
+
+    programs.virt-manager.enable = true;
+
+    users.groups.libvirtd.members = ["bug"];
+
+    virtualisation.libvirtd.enable = true;
+
+    virtualisation.spiceUSBRedirection.enable = true;
 
     programs = {
         bash.shellAliases = {
@@ -71,6 +79,12 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             libraries = with pkgs; [
                 gtk3
                 glib
+                libgbinder
+                pcre2
+                gtk4
+                libadwaita
+                lxc
+                dnsmasq
                 alsa-lib
                 libGL
 

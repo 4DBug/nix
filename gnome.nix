@@ -6,6 +6,7 @@
         rounded-window-corners-reborn
         just-perfection
         clipboard-history
+        #pano
     ];
 
     services = {
@@ -15,6 +16,8 @@
                 user = "bug";
             };
         };
+
+        # desktopManager.cosmic.enable = true;
 
         xserver = {
             enable = true;

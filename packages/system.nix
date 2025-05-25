@@ -24,5 +24,29 @@
         # nix language server
         nixd
         nil
+
+        gtk3
+        gobject-introspection
+
+        libadwaita
+
+        appimage-run
+
+        nimble
+        clang
+        gnumake
+        nim
+        pkg-config
+        mimalloc
+
+        gnome-boxes
+
+        glib
+        libgbinder
+        pcre2
+        gtk4
+        libadwaita
+        lxc
+        dnsmasq
     ];
 }

@@ -14,9 +14,9 @@
         };
         
         overlays = [
-            (self: super: {
-                plasticity = self.callPackage ./plasticity.nix { };
-            })
+            #(self: super: {
+            #    plasticity = self.callPackage ./plasticity.nix { };
+            #})
         ];
     };
     
@@ -29,7 +29,7 @@
         }];
 
         update.auto.enable = true;
-        uninstallUnmanaged = false;
+        uninstallUnmanaged = true;
     };
 
     programs.virt-manager.enable = true;
@@ -45,10 +45,11 @@
             fetch = "fastfetch --file ~/Pictures/Ansi/nix.ans";
             neofetch = "fetch";
 
-            rebuild = "sudo nixos-rebuild switch --impure && home-manager switch --impure";
+            rebuild = "sudo nixos-rebuild switch --impure"; # home-manager switch --impure
 
-            pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
-            pi = "pissh \"cd $(pwd) && bash\"";
+            #pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
+            #pi = "pissh \"cd $(pwd) && bash\"";
+            pi = "ssh pi.bug.tools";
 
             pico = "ssh pico.sh";
 

@@ -103,10 +103,10 @@
             glib
         ]))
 
-        plasticity
+        #plasticity
 
         # video
-        kdenlive
+        # kdenlive
 
         # markdown / notes
         obsidian
@@ -120,7 +120,7 @@
         pulseaudio
 
         # utilties
-        mapscii
+        #mapscii
         cloudflared
         base16-schemes
         ptyxis
@@ -133,20 +133,19 @@
         xclicker
         gh
         scanmem
-        openrgb
+        #openrgb
         samrewritten
-        testdisk
+        #testdisk
         impression
         bambu-studio
         sushi
         #lutris
         resources
-        discord
+        #discord
         authenticator
         eyedropper
-        turtle
+        #turtle
         #xonotic
-        apostrophe
         buffer
     ];
 }

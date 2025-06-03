@@ -11,19 +11,21 @@
 
     services = {
         displayManager = {
+            cosmic-greeter.enable = true;
+
             autoLogin = {
                 enable = true;
                 user = "bug";
             };
         };
 
-        # desktopManager.cosmic.enable = true;
+        desktopManager.cosmic.enable = true;
+
+        displayManager.gdm.enable = true;
+        desktopManager.gnome.enable = true;
 
         xserver = {
             enable = true;
-
-            displayManager.gdm.enable = true;
-            desktopManager.gnome.enable = true;
 
             xkb = {
                 layout = "us";

@@ -1,16 +1,18 @@
 { ... }:
 
 {
-    hardware.pulseaudio.enable = false;
+    services = {
+        pulseaudio.enable = false;
+        
+        pipewire = {
+            enable = true;
 
-    services.pipewire = {
-        enable = true;
+            alsa.enable = true;
+            alsa.support32Bit = true;
 
-        alsa.enable = true;
-        alsa.support32Bit = true;
+            pulse.enable = true;
 
-        pulse.enable = true;
-
-        jack.enable = true;
+            jack.enable = true;
+        };
     };
 }

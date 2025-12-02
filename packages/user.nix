@@ -1,10 +1,13 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
+let 
+    unstable = import <nixos-unstable> { config = config.nixpkgs.config or {}; };
+in
 {
     users.users.bug.packages = with pkgs; [
         # ide
         vscode
-        zed-editor
+        #zed-editor
 
         # languages
         luau
@@ -30,6 +33,7 @@
             pynput
             python-uinput
 
+            mido
         #    ninja
         #    pybind11
 
@@ -85,12 +89,14 @@
             numpy
             scipy
             imageio
+
+            evdev
         ]))
 
         nodejs
 
         # 3D
-        (blender.withPackages (ps: with ps; [
+        (unstable.blender.withPackages (ps: with ps; [
             libGLU
             gcc
             zlib
@@ -103,7 +109,8 @@
             glib
         ]))
 
-        #plasticity
+        plasticity
+        plasticity-beta
 
         # video
         # kdenlive
@@ -116,20 +123,18 @@
 
         # music
         nicotine-plus
-        furnace
+        #furnace
         pulseaudio
 
         # utilties
         #mapscii
         cloudflared
-        base16-schemes
+        #base16-schemes
         ptyxis
-        rpi-imager
+        #rpi-imager
         fastfetch
         tree
-        gnome-tweaks
-        wine
-        wine64
+        #gnome-tweaks
         xclicker
         gh
         scanmem
@@ -137,15 +142,25 @@
         samrewritten
         #testdisk
         impression
-        bambu-studio
-        sushi
+        #bambu-studio
+        orca-slicer
+        #sushi
         #lutris
         resources
         #discord
+        dissent
+        
         authenticator
-        eyedropper
+        #eyedropper
         #turtle
         #xonotic
         buffer
+
+        steamtinkerlaunch
+        protonup-qt
+
+        obs-studio
+
+        prismlauncher
     ];
 }

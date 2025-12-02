@@ -9,7 +9,12 @@
     #services.journald.extraConfig = "Storage=volatile";
 
     boot = {
-        kernelParams = [ "fsck.mode=skip" ]; 
+        #kernel.sysctl = {
+        #    "vm.max_map_count" = 16777216;
+        #    "fs.file-max" = 524288;
+        #};
+        
+        kernelParams = [ "fsck.mode=skip" "nvidia_drm.fbdev=1" "nvidia-drm.modeset=1" ]; 
 
         initrd.checkJournalingFS = false;
 

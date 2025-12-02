@@ -12,11 +12,11 @@
             allowUnfree = true;
             #cudaSupport = true;
         };
-        
+
         overlays = [
-            #(self: super: {
-            #    plasticity = self.callPackage ./plasticity.nix { };
-            #})
+            (self: super: {
+                plasticity-beta = self.callPackage ./plasticity.nix { };
+            })
         ];
     };
     
@@ -32,6 +32,10 @@
         uninstallUnmanaged = true;
     };
 
+    environment.sessionVariables = {
+        WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+    };
+
     programs.virt-manager.enable = true;
 
     users.groups.libvirtd.members = ["bug"];
@@ -39,6 +43,11 @@
     virtualisation.libvirtd.enable = true;
 
     virtualisation.spiceUSBRedirection.enable = true;
+
+    virtualisation.docker.enable = true;
+    
+    programs.appimage.enable = true;
+    programs.appimage.binfmt = true;
 
     programs = {
         bash.shellAliases = {
@@ -62,6 +71,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
 
             # pgs name directory
             pgs = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: pgs NAME DIRECTORY\"; exit 1; fi; rsync -rv \"$2\" pgs.sh:/\"$1\"'\'' _";
+        
+            bambu = "env -u WAYLAND_DISPLAY XDG_SESSION_TYPE=x11 WEBKIT_FORCE_COMPOSITING_MODE=1 WEBKIT_DISABLE_COMPOSITING_MODE=1 GBM_BACKEND=dri bambu-studio";
         };
 
         dconf.enable = lib.mkDefault true;
@@ -79,29 +90,71 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             enable = true;
             libraries = with pkgs; [
                 gtk3
-                glib
-                libgbinder
-                pcre2
-                gtk4
-                libadwaita
-                lxc
-                dnsmasq
-                alsa-lib
-                libGL
-
-                libGLU
-                mesa
-                gcc
-                zlib
                 xorg.libX11
-                fontconfig
-                pcre2
-                xorg.libXext
+                #glib
+                #libgbinder
+                #pcre2
+                #gtk4
+                #libadwaita
+                #lxc
+                #dnsmasq
+                #alsa-lib
+                #libGL
+
+                #libGLU
+                mesa
+                #gcc
+                zlib
+                #xorg.libX11
+                #fontconfig
+                #pcre2
+                #xorg.libXext
+                #gcc
+                #xorg.libxcb
+                #pkgs.qt5.full pkgs.freetype pkgs.fontconfig
+                #pkgs.xorg.libX11 pkgs.xorg.libxcb pkgs.xorg.libXext
+                #pkgs.xorg.libXrender
+
+                
+                cmake
+                clang
+                zulu
+                jdk
+                openjdk
+                mesa
+                libGL
+                libGLU
+                zlib
+                glfw
+                gtkmm4
+                pangomm_2_48
+                #glibmm_2_68 
+                cairomm_1_16
+                libsigcxx30
+                gtk4
+                pango
+                gdk-pixbuf
+                cairo
+                harfbuzz
+                graphene
+                glib
+                vulkan-loader
+                glew
+                freeglut
                 gcc
-                xorg.libxcb
-                pkgs.qt5.full pkgs.freetype pkgs.fontconfig
-                pkgs.xorg.libX11 pkgs.xorg.libxcb pkgs.xorg.libXext
-                pkgs.xorg.libXrender
+
+                brotli
+                libpng
+
+                libunwind
+
+                jdk17_headless
+                libunwind
+                gcc
+                mesa
+                glew
+                glfw
+                zlib
             ];
         };
     };

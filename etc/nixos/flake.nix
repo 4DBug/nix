@@ -7,6 +7,11 @@
         flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
         nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
+        nix-citizen.url = "github:LovingMelody/nix-citizen";
+        
+        nix-gaming.url = "github:fufexan/nix-gaming";
+        nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, home-manager, flatpaks, ... }:
@@ -16,6 +21,9 @@
     {
         nixosConfigurations.nix = nixpkgs.lib.nixosSystem {
             inherit system;
+
+            specialArgs = { inherit inputs; };
+
             modules = [
                 {
                     nix.settings = {
@@ -24,10 +32,12 @@
                     };
                 }
 
-                nixos-cosmic.nixosModules.default
+                #nixos-cosmic.nixosModules.default
 
                 flatpaks.nixosModules.nix-flatpak
                 
+                nix-citizen.nixosModules.default
+
                 ./configuration.nix
             ];
         };

@@ -2,10 +2,10 @@
 
 {
     environment.systemPackages = with pkgs.gnomeExtensions; [
-        arcmenu
-        rounded-window-corners-reborn
-        just-perfection
-        clipboard-history
+        #arcmenu
+        #rounded-window-corners-reborn
+        #just-perfection
+        #clipboard-history
         #pano
     ];
 
@@ -21,8 +21,14 @@
 
         desktopManager.cosmic.enable = true;
 
-        displayManager.gdm.enable = true;
-        desktopManager.gnome.enable = true;
+        #desktopManager.plasma6.enable = true;
+
+        displayManager.sddm.enable = true;
+
+        displayManager.sddm.wayland.enable = true;
+        
+        #displayManager.gdm.enable = true;
+        #desktopManager.gnome.enable = true;
 
         xserver = {
             enable = true;
@@ -46,3 +52,7 @@
         };
     };
 }
+
+
+
+

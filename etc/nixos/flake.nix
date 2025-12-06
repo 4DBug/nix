@@ -1,6 +1,6 @@
 {
     inputs = {
-        nixpkgs.follows = "nixos-cosmic/nixpkgs";
+        # nixpkgs.follows = "nixos-cosmic/nixpkgs";
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
         flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";

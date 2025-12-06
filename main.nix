@@ -1,13 +1,13 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, inputs, pkgs, ... }:
 
 let
-  nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
+    nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
 in
 {
     imports = [
         /etc/nixos/hardware-configuration.nix
-        inputs.nix-gaming.nixosModules.platformOptimizations
-        inputs.nix-gaming.nixosModules.pipewireLowLatency
+        nix-gaming.nixosModules.platformOptimizations
+        nix-gaming.nixosModules.pipewireLowLatency
     ];
 
     system = {
@@ -61,9 +61,12 @@ in
         enableRedistributableFirmware = true;
     };
 
-    systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
+    #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+    systemd.services.monitord.wantedBy = [ "multi-user.target" ];
 
     boot = {
+        kernelParams = [ "nvidia_drm.fbdev=1" ];
+
         kernelPackages = pkgs.linuxPackages_zen;
 
         kernel.sysctl = {
@@ -76,7 +79,7 @@ in
             grub.splashImage = null;
 
             systemd-boot.enable = true;
-            systemd-boot.configurationLimit = 10;
+            systemd-boot.configurationLimit = 25;
             
             efi.canTouchEfiVariables = true;
         };
@@ -89,7 +92,7 @@ in
     
     zramSwap = {
         enable = true;
-        memoryMax = 16 * 1024 * 1024 * 1024;
+        memoryMax = 64 * 1024 * 1024 * 1024;
     };
 
     time.timeZone = "America/Chicago";
@@ -114,12 +117,11 @@ in
 
         networkmanager.enable = true;
         nameservers = ["1.1.1.1" "1.0.0.1"];
-        
-        enableIPv6 = false;
     };
 
     security = {
         rtkit.enable = true;
+        polkit.enable = true;
 
         sudo = {
             enable = true;
@@ -139,10 +141,12 @@ in
 
     services = {
         greetd.enable = true;
-
+        
         system76-scheduler.enable = true;
 
         displayManager = {
+            # gdm.enable = true;
+
             cosmic-greeter.enable = true;
 
             autoLogin = {
@@ -151,7 +155,11 @@ in
             };
         };
 
-        desktopManager.cosmic.enable = true;
+        desktopManager = {
+            cosmic.enable = true;
+
+            # gnome.enable = true;
+        };
 
         xserver = {
             enable = true;
@@ -254,8 +262,7 @@ in
             pycairo
 
             tkinter
-            pyautogui
-        
+
             numpy
             scipy
             imageio
@@ -273,7 +280,6 @@ in
             fontconfig
             pcre2
             xorg.libXext
-            gcc
             xorg.libxcb
             glib
         ]))
@@ -299,12 +305,13 @@ in
 
         obs-studio
 
-        prismlauncher
-        gimp
+        #prismlauncher
+        #gimp
     ];
 
     environment = {
         variables = {
+            WGPU_BACKEND = "gl";
             GBM_BACKEND = "nvidia-drm";
             LIBVA_DRIVER_NAME = "nvidia";
             __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -313,6 +320,7 @@ in
         sessionVariables = {
             COSMIC_DATA_CONTROL_ENABLED = 1;
             WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+            NIXPKGS_ALLOW_UNFREE = 1;
         };
 
         systemPackages = with pkgs; [
@@ -337,7 +345,6 @@ in
 
             gnome-boxes
 
-            jdk
             openjdk
             zlib
             glfw
@@ -347,10 +354,6 @@ in
             wineWow64Packages.full
 
             lug-helper
-
-            #inputs.nix-citizen.packages.${system}.star-citizen-git
-            #inputs.nix-citizen.packages.${system}.star-citizen
-            #inputs.nix-citizen.packages.${system}.wine-astral
 
             (nix-gaming.packages.${pkgs.hostPlatform.system}.star-citizen.override {
                 tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
@@ -369,6 +372,21 @@ in
             gamemode
 
             winetricks
+
+            steam-run
+
+            firmware-updater
+
+            cosmic-applets
+            cosmic-edit
+            cosmic-ext-calculator
+            cosmic-ext-tweaks
+            cosmic-screenshot
+            quick-webapps
+
+            gnomeExtensions.arcmenu
+            gnomeExtensions.rounded-window-corners-reborn
+            gnomeExtensions.just-perfection
         ];
     };
 
@@ -379,6 +397,20 @@ in
 
             nvidia.acceptLicense = true;
         };
+
+        overlays = [
+            (self: super: {
+                bambu-studio = super.bambu-studio.overrideAttrs (oldAttrs: let
+                    cudap = self.cudaPackages.cudatoolkit;
+                    lib = self.lib;
+                in {
+                    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
+                        "-DCUDA_TOOLKIT_ROOT_DIR=${toString cudap}"
+                        "-DCUDAToolkit_ROOT=${toString cudap}"
+                    ];
+                });
+            })
+        ];
     };
     
     virtualisation = {
@@ -417,7 +449,11 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             bambu = "env -u WAYLAND_DISPLAY XDG_SESSION_TYPE=x11 WEBKIT_FORCE_COMPOSITING_MODE=1 WEBKIT_DISABLE_COMPOSITING_MODE=1 GBM_BACKEND=dri bambu-studio";
         };
 
-        firefox.enable = true;
+        firefox = {
+            enable = true;
+
+            package = pkgs.firefox-bin;
+        };
 
         steam = {
             enable = true;

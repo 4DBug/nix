@@ -1,17 +1,11 @@
-
 {
     inputs = {
         nixpkgs.follows = "nixos-cosmic/nixpkgs";
-        nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
         flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
         nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-
-        nix-citizen.url = "github:LovingMelody/nix-citizen";
-        
-        nix-gaming.url = "github:fufexan/nix-gaming";
-        nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, home-manager, flatpaks, ... }:
@@ -32,12 +26,8 @@
                     };
                 }
 
-                #nixos-cosmic.nixosModules.default
-
                 flatpaks.nixosModules.nix-flatpak
                 
-                nix-citizen.nixosModules.default
-
                 ./configuration.nix
             ];
         };

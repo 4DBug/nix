@@ -2,6 +2,10 @@
 
 let
     nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
+
+    nix-alien = import (
+        builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
+    ) {};
 in
 {
     imports = [
@@ -19,6 +23,7 @@ in
         };
     };
 
+    nix.optimise.automatic = true;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     users.users.bug = {
@@ -53,7 +58,7 @@ in
 
             nvidiaSettings = true;
 
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+            package = config.boot.kernelPackages.nvidiaPackages.latest;
 
             nvidiaPersistenced = false;
         };
@@ -61,6 +66,10 @@ in
         enableRedistributableFirmware = true;
     };
 
+    systemd.user.extraConfig = ''
+        DefaultEnvironment="PATH=/run/current-system/sw/bin"
+    '';
+    
     #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
     systemd.services.monitord.wantedBy = [ "multi-user.target" ];
 
@@ -77,6 +86,13 @@ in
 
         loader = {
             grub.splashImage = null;
+
+            #grub = {
+            #    enable = true;
+            #    device = "nodev";
+            #    efiSupport = true;
+            #    gfxmodeEfi = "5120x1440";
+            #};
 
             systemd-boot.enable = true;
             systemd-boot.configurationLimit = 25;
@@ -129,14 +145,44 @@ in
         };
     };
 
-    xdg.portal = {
-        enable = true;
-        xdgOpenUsePortal = true;
-        config = {
-            common.default = ["gtk"];
+    xdg = {
+        portal = {
+            enable = true;
+            xdgOpenUsePortal = true;
+
+            config = {
+                common.default = ["gtk"];
+            };
+
+            extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-cosmic];
         };
 
-        extraPortals = [pkgs.xdg-desktop-portal-gtk];
+        mime = {
+            enable = true;
+
+            defaultApplications = {
+                "text/html" = "firefox.desktop";
+                "x-scheme-handler/http" = "firefox.desktop";
+                "x-scheme-handler/https" = "firefox.desktop";
+                "x-scheme-handler/about" = "firefox.desktop";
+                "x-scheme-handler/unknown" = "firefox.desktop";
+                "application/pdf" = "firefox.desktop";
+
+                "inode/directory" = "com.system76.CosmicFiles.desktop";
+
+                "text/plain" = "com.system76.CosmicEdit.desktop";
+                "text/markdown" = "com.system76.CosmicEdit.desktop";
+
+                "application/zip"                   = "org.gnome.FileRoller.desktop";
+                "application/x-7z-compressed"       = "org.gnome.FileRoller.desktop";
+                "application/x-tar"                 = "org.gnome.FileRoller.desktop";
+                "application/gzip"                  = "org.gnome.FileRoller.desktop";
+                "application/x-xz"                  = "org.gnome.FileRoller.desktop";
+                "application/x-zip-compressed"      = "org.gnome.FileRoller.desktop";
+
+                "application/x-ms-dos-executable"   = "wine.desktop";
+            };
+        };
     };
 
     services = {
@@ -172,6 +218,8 @@ in
             };
         };
 
+        fstrim.enable = true;
+        
         openssh.enable = true;
 
         pulseaudio.enable = false;
@@ -222,6 +270,8 @@ in
 
         packages = with pkgs; [
             twitter-color-emoji
+            nerd-fonts.fira-code
+            nerd-fonts.droid-sans-mono
         ];
 
         fontconfig = {
@@ -318,6 +368,7 @@ in
         };
 
         sessionVariables = {
+            BROWSER = "firefox";
             COSMIC_DATA_CONTROL_ENABLED = 1;
             WEBKIT_DISABLE_COMPOSITING_MODE = "1";
             NIXPKGS_ALLOW_UNFREE = 1;
@@ -337,9 +388,11 @@ in
             nmap
             inetutils
 
+            nix-prefetch
             nix-output-monitor
             nvd
 
+            nixfmt
             nixd
             nil
 
@@ -355,7 +408,7 @@ in
 
             lug-helper
 
-            (nix-gaming.packages.${pkgs.hostPlatform.system}.star-citizen.override {
+            (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
                 tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
             })
 
@@ -384,9 +437,20 @@ in
             cosmic-screenshot
             quick-webapps
 
-            gnomeExtensions.arcmenu
-            gnomeExtensions.rounded-window-corners-reborn
-            gnomeExtensions.just-perfection
+            nix-alien.nix-alien
+
+            file-roller
+            unzip
+
+            xdg-desktop-portal-gtk
+            xdg-desktop-portal-cosmic
+
+            mangohud
+            mesa-demos
+
+            lutris
+
+            gnome-software
         ];
     };
 
@@ -484,7 +548,7 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
         nix-ld = {
             enable = true;
             libraries = with pkgs; [
-
+                stdenv.cc.cc
             ];
         };
     };

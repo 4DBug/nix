@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, desktop, ... }:
+{ lib, config, inputs, pkgs, options, desktop, ... }:
 
 let
     nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -46,8 +46,27 @@ in
                 libva-utils
                 libglvnd
                 mesa
-            ];
+            ] ++ (if desktop then [
+                nvidia-vaapi-driver
+            ] else [
+                
+            ]);
         };
+
+        nvidia = if (desktop) then {
+            modesetting.enable = true;
+
+            powerManagement.enable = false;
+            powerManagement.finegrained = false;
+
+            open = false;
+
+            nvidiaSettings = true;
+
+            package = config.boot.kernelPackages.nvidiaPackages.latest;
+
+            nvidiaPersistenced = false;
+        } else {};
 
         enableRedistributableFirmware = true;
     };
@@ -55,8 +74,7 @@ in
     systemd.user.extraConfig = ''
         DefaultEnvironment="PATH=/run/current-system/sw/bin"
     '';
-    
-    #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+
     systemd.services.monitord.wantedBy = [ "multi-user.target" ];
 
     systemd.services.mpd.environment = {
@@ -64,6 +82,8 @@ in
     };
 
     boot = {
+        kernelParams = if desktop then ["nvidia_drm.fbdev=1"] else [];
+
         kernelPackages = pkgs.linuxPackages_zen;
 
         kernel.sysctl = {
@@ -74,13 +94,6 @@ in
 
         loader = {
             grub.splashImage = null;
-
-            #grub = {
-            #    enable = true;
-            #    device = "nodev";
-            #    efiSupport = true;
-            #    gfxmodeEfi = "5120x1440";
-            #};
 
             systemd-boot.enable = true;
             systemd-boot.configurationLimit = 25;
@@ -373,8 +386,9 @@ in
         samrewritten
         impression
         bambu-studio
-        resources
-
+        # resources
+        mission-center
+        
         authenticator
 
         steamtinkerlaunch
@@ -389,7 +403,14 @@ in
     environment = {
         variables = {
             MICRO_TRUECOLOR = 1;
-        };
+        } // (if desktop then {
+            WGPU_BACKEND = "gl";
+            GBM_BACKEND = "nvidia-drm";
+            LIBVA_DRIVER_NAME = "nvidia";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        } else {
+
+        });
 
         sessionVariables = {
             BROWSER = "firefox";
@@ -479,7 +500,7 @@ in
             })
 
             libxshmfence
-            
+
             (appimage-run.override {
                 extraPkgs = pkgs: [ pkgs.xorg.libxshmfence pkgs.linuxPackages.nvidia_x11 ];
             })
@@ -492,6 +513,7 @@ in
         config = {
             allowUnfree = true;
             cudaSupport = desktop;
+            nvidia.acceptLicense = desktop;
         };
 
         overlays = [
@@ -571,9 +593,10 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
 
         nix-ld = {
             enable = true;
-            libraries = with pkgs; [
-                stdenv.cc.cc
-            ];
+
+            libraries = options.programs.nix-ld.libraries.default ++ (with pkgs; [
+                
+            ]);
         };
     };
 }

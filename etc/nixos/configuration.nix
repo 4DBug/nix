@@ -2,6 +2,6 @@
 
 {
     imports = [
-        ./main.nix
+        /home/bug/nix/main.nix
     ];
 }

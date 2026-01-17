@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, ... }:
+{ lib, config, inputs, pkgs, desktop, ... }:
 
 let
     nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -41,26 +41,12 @@ in
                 libva-vdpau-driver
                 libvdpau
                 libvdpau-va-gl
-                nvidia-vaapi-driver
                 vdpauinfo
                 libva
                 libva-utils
+                libglvnd
+                mesa
             ];
-        };
-
-        nvidia = {
-            modesetting.enable = true;
-
-            powerManagement.enable = false;
-            powerManagement.finegrained = false;
-
-            open = false;
-
-            nvidiaSettings = true;
-
-            package = config.boot.kernelPackages.nvidiaPackages.latest;
-
-            nvidiaPersistenced = false;
         };
 
         enableRedistributableFirmware = true;
@@ -73,9 +59,11 @@ in
     #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
     systemd.services.monitord.wantedBy = [ "multi-user.target" ];
 
-    boot = {
-        kernelParams = [ "nvidia_drm.fbdev=1" ];
+    systemd.services.mpd.environment = {
+        XDG_RUNTIME_DIR = "/run/user/1000";
+    };
 
+    boot = {
         kernelPackages = pkgs.linuxPackages_zen;
 
         kernel.sysctl = {
@@ -135,6 +123,8 @@ in
         nameservers = ["1.1.1.1" "1.0.0.1"];
     };
 
+    services.cloudflare-warp.enable = !desktop;
+    
     security = {
         rtkit.enable = true;
         polkit.enable = true;
@@ -188,28 +178,30 @@ in
     services = {
         greetd.enable = true;
         
+        logind.settings.Login = {
+            HandleLidSwitch = "ignore";
+            HandleLidSwitchDocked = "ignore";
+        };
+
         system76-scheduler.enable = true;
 
         displayManager = {
-            # gdm.enable = true;
-
             cosmic-greeter.enable = true;
 
             autoLogin = {
-                enable = true;
+                enable = desktop;
                 user = "bug";
             };
         };
 
         desktopManager = {
             cosmic.enable = true;
-
-            # gnome.enable = true;
         };
 
         xserver = {
             enable = true;
-            videoDrivers = ["nvidia"];
+
+            videoDrivers = if desktop then ["nvidia"] else ["amdgpu"];
             excludePackages = [pkgs.xterm];
 
             xkb = {
@@ -227,6 +219,8 @@ in
         pipewire = {
             enable = true;
 
+            wireplumber.enable = true;
+
             alsa.enable = true;
             alsa.support32Bit = true;
 
@@ -235,6 +229,32 @@ in
             lowLatency.enable = false;
 
             jack.enable = true;
+        };
+
+        mpd = {
+            enable = !desktop;
+
+            settings = {
+                music_directory = "/run/media/bug/Music/";
+
+                decoder = [
+                    {
+                        plugin = "ffmpeg";
+                        enabled = "yes";
+                    }
+                    {
+                        plugin = "opus";
+                        enabled = "no"; 
+                    }
+                ];
+
+                audio_output = [{
+                    type = "pipewire";
+                    name = "PipeWire Sound Server";
+                }];
+            };
+
+            user = "bug";
         };
 
         flatpak = {
@@ -251,9 +271,18 @@ in
             packages = [
                 "org.vinegarhq.Sober"
                 "org.vinegarhq.Vinegar"
-                #"com.bambulab.BambuStudio"
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
+                "community.pathofbuilding.PathOfBuilding"
+
+                rec {
+                    appId = "com.hytale.Launcher";
+                    sha256 = "sha256-iBYZTbm82X+CbF9v/7pwOxxxfK/bwlBValCAVC5xgV8=";
+                    bundle = "${pkgs.fetchurl {
+                        url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
+                        inherit sha256;
+                    }}";
+                }
             ];
 
             overrides = {
@@ -305,8 +334,6 @@ in
 
             mido
 
-
-
             pyautogui
             pygobject3
             pycairo
@@ -345,8 +372,7 @@ in
         scanmem
         samrewritten
         impression
-        #bambu-studio
-        #orca-slicer
+        bambu-studio
         resources
 
         authenticator
@@ -356,15 +382,13 @@ in
         obs-studio
 
         #prismlauncher
-        #gimp
+
+        euphonica
     ];
 
     environment = {
         variables = {
-            WGPU_BACKEND = "gl";
-            GBM_BACKEND = "nvidia-drm";
-            LIBVA_DRIVER_NAME = "nvidia";
-            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            MICRO_TRUECOLOR = 1;
         };
 
         sessionVariables = {
@@ -408,17 +432,11 @@ in
 
             lug-helper
 
-            (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
-                tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
-            })
-
             appimage-run
 
             vulkan-tools
             vulkan-validation-layers
             vulkan-loader
-
-            protonplus
 
             pulseaudioFull
 
@@ -451,29 +469,33 @@ in
             lutris
 
             gnome-software
-        ];
+
+            neovim
+
+            micro
+        ] ++ (if desktop then [
+            (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
+                tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
+            })
+
+            libxshmfence
+            
+            (appimage-run.override {
+                extraPkgs = pkgs: [ pkgs.xorg.libxshmfence pkgs.linuxPackages.nvidia_x11 ];
+            })
+        ] else [
+            
+        ]);
     };
 
     nixpkgs = {
         config = {
             allowUnfree = true;
-            cudaSupport = true;
-
-            nvidia.acceptLicense = true;
+            cudaSupport = desktop;
         };
 
         overlays = [
-            (self: super: {
-                bambu-studio = super.bambu-studio.overrideAttrs (oldAttrs: let
-                    cudap = self.cudaPackages.cudatoolkit;
-                    lib = self.lib;
-                in {
-                    cmakeFlags = (oldAttrs.cmakeFlags or []) ++ [
-                        "-DCUDA_TOOLKIT_ROOT_DIR=${toString cudap}"
-                        "-DCUDAToolkit_ROOT=${toString cudap}"
-                    ];
-                });
-            })
+
         ];
     };
     
@@ -489,7 +511,7 @@ in
         };
 
         bash.shellAliases = {
-            fetch = "fastfetch --file ~/Pictures/Ansi/nix.ans";
+            fetch = "fastfetch --file ~/nix/nix.ans";
             neofetch = "fetch";
 
             rebuild = "sudo nixos-rebuild switch --impure"; # home-manager switch --impure
@@ -511,6 +533,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             pgs = "bash -c '\''if [ \"$#\" -ne 2 ]; then echo \"Usage: pgs NAME DIRECTORY\"; exit 1; fi; rsync -rv \"$2\" pgs.sh:/\"$1\"'\'' _";
         
             bambu = "env -u WAYLAND_DISPLAY XDG_SESSION_TYPE=x11 WEBKIT_FORCE_COMPOSITING_MODE=1 WEBKIT_DISABLE_COMPOSITING_MODE=1 GBM_BACKEND=dri bambu-studio";
+
+            scale = "env GDK_BACKEND=x11 GDK_SCALE=1 GDK_DPI_SCALE=1";
         };
 
         firefox = {

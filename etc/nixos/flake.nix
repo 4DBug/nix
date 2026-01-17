@@ -6,17 +6,23 @@
         flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
         nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+        
+        stylix = {
+            url = "github:nix-community/stylix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, flatpaks, ... }:
+    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, ... }:
     let
+    	deviceType = import /etc/nixos/device.nix;
         system = "x86_64-linux";
     in
     {
         nixosConfigurations.nix = nixpkgs.lib.nixosSystem {
             inherit system;
 
-            specialArgs = { inherit inputs; };
+            specialArgs = { inherit inputs; inherit (deviceType) desktop; };
 
             modules = [
                 {
@@ -27,6 +33,8 @@
                 }
 
                 flatpaks.nixosModules.nix-flatpak
+                
+                stylix.nixosModules.stylix
                 
                 ./configuration.nix
             ];

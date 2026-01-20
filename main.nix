@@ -288,12 +288,12 @@ in
                 "org.pipewire.Helvum"
                 "community.pathofbuilding.PathOfBuilding"
 
-                rec {
+                {
                     appId = "com.hytale.Launcher";
                     sha256 = "sha256-SUxfyovC2umZmsOj5bOTZ8WfGCpnWcz7svOESwNekV0=";
                     bundle = "${pkgs.fetchurl {
                         url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
-                        inherit sha256;
+                        sha256 = "sha256-SUxfyovC2umZmsOj5bOTZ8WfGCpnWcz7svOESwNekV0=";
                     }}";
                 }
             ];
@@ -596,7 +596,10 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             enable = true;
 
             libraries = options.programs.nix-ld.libraries.default ++ (with pkgs; [
-                
+                xorg.libX11
+                libxml2
+                udev
+                gcc
             ]);
         };
     };

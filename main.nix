@@ -65,7 +65,7 @@ in
 
             package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-            nvidiaPersistenced = false;
+            nvidiaPersistenced = true;
         } else {};
 
         enableRedistributableFirmware = true;
@@ -82,7 +82,8 @@ in
     };
 
     boot = {
-        kernelParams = if desktop then ["nvidia_drm.fbdev=1"] else [];
+        kernelModules = if desktop then ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"] else [];
+        kernelParams = if desktop then ["nvidia-drm.modeset=1" "nvidia_drm.fbdev=1"] else [];
 
         kernelPackages = pkgs.linuxPackages_zen;
 
@@ -138,6 +139,7 @@ in
 
     services.cloudflare-warp.enable = !desktop;
     
+
     security = {
         rtkit.enable = true;
         polkit.enable = true;
@@ -418,7 +420,15 @@ in
             COSMIC_DATA_CONTROL_ENABLED = 1;
             WEBKIT_DISABLE_COMPOSITING_MODE = "1";
             NIXPKGS_ALLOW_UNFREE = 1;
-        };
+        } // (if desktop then {
+            WGPU_BACKEND = "gl";
+            GBM_BACKEND = "nvidia-drm";
+            LIBVA_DRIVER_NAME = "nvidia";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            EGL_PLATFORM = "wayland";
+        } else {
+
+        });
 
         systemPackages = with pkgs; [
             home-manager
@@ -561,6 +571,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             bambu = "env -u WAYLAND_DISPLAY XDG_SESSION_TYPE=x11 WEBKIT_FORCE_COMPOSITING_MODE=1 WEBKIT_DISABLE_COMPOSITING_MODE=1 GBM_BACKEND=dri bambu-studio";
 
             scale = "env GDK_BACKEND=x11 GDK_SCALE=1 GDK_DPI_SCALE=1";
+            
+            hytale = "env -u WAYLAND_DISPLAY -u EGL_PLATFORM -u ELECTRON_ENABLE_WAYLAND DISPLAY=:0 XDG_SESSION_TYPE=x11 __GLX_VENDOR_LIBRARY_NAME=nvidia LD_LIBRARY_PATH=/run/opengl-driver/lib hytale-launcher";
         };
 
         firefox = {

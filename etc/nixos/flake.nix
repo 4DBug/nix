@@ -7,13 +7,15 @@
 
         nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
         
+        hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
+
         stylix = {
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, ... }:
+    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, ... }:
     let
     	deviceType = import /etc/nixos/device.nix;
         system = "x86_64-linux";

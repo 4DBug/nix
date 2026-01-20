@@ -59,11 +59,11 @@ in
             powerManagement.enable = false;
             powerManagement.finegrained = false;
 
-            open = false;
+            open = true;
 
             nvidiaSettings = true;
 
-            package = config.boot.kernelPackages.nvidiaPackages.latest;
+            package = config.boot.kernelPackages.nvidiaPackages.stable;
 
             nvidiaPersistenced = false;
         } else {};
@@ -214,7 +214,7 @@ in
         xserver = {
             enable = true;
 
-            videoDrivers = if desktop then ["nvidia"] else ["amdgpu"];
+            videoDrivers = if desktop then ["modesetting" "nvidia"] else ["amdgpu"];
             excludePackages = [pkgs.xterm];
 
             xkb = {
@@ -408,6 +408,7 @@ in
             GBM_BACKEND = "nvidia-drm";
             LIBVA_DRIVER_NAME = "nvidia";
             __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+            EGL_PLATFORM = "wayland";
         } else {
 
         });
@@ -494,6 +495,8 @@ in
             neovim
 
             micro
+            
+            inputs.hytale-launcher.packages.${pkgs.system}.default
         ] ++ (if desktop then [
             (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
                 tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
@@ -596,10 +599,17 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
             enable = true;
 
             libraries = options.programs.nix-ld.libraries.default ++ (with pkgs; [
-                xorg.libX11
                 libxml2
                 udev
                 gcc
+                egl-wayland
+                mesa
+                libglvnd
+                wayland
+                xorg.libX11
+                xorg.libXcursor
+                xorg.libXrandr
+                xorg.libXi
             ]);
         };
     };

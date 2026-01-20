@@ -1,1 +1,1 @@
-{ desktop = false; }
+{ desktop = true; }

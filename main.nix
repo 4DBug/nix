@@ -53,7 +53,7 @@ in
             ]);
         };
 
-        nvidia = if (desktop) then {
+        nvidia = if desktop then {
             modesetting.enable = true;
 
             powerManagement.enable = false;
@@ -290,7 +290,7 @@ in
 
                 rec {
                     appId = "com.hytale.Launcher";
-                    sha256 = "sha256-iBYZTbm82X+CbF9v/7pwOxxxfK/bwlBValCAVC5xgV8=";
+                    sha256 = "sha256-SUxfyovC2umZmsOj5bOTZ8WfGCpnWcz7svOESwNekV0=";
                     bundle = "${pkgs.fetchurl {
                         url = "https://launcher.hytale.com/builds/release/linux/amd64/hytale-launcher-latest.flatpak";
                         inherit sha256;
@@ -385,7 +385,7 @@ in
         scanmem
         samrewritten
         impression
-        bambu-studio
+
         # resources
         mission-center
         
@@ -505,19 +505,20 @@ in
                 extraPkgs = pkgs: [ pkgs.xorg.libxshmfence pkgs.linuxPackages.nvidia_x11 ];
             })
         ] else [
-            
+            bambu-studio
         ]);
     };
 
     nixpkgs = {
         config = {
             allowUnfree = true;
+
             cudaSupport = desktop;
             nvidia.acceptLicense = desktop;
         };
 
         overlays = [
-
+            
         ];
     };
     

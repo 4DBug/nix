@@ -29,7 +29,7 @@ in
     users.users.bug = {
         isNormalUser = true;
         description = "Bug";
-        extraGroups = [ "networkmanager" "wheel" "audio" "video" "libvirtd" ];
+        extraGroups = [ "networkmanager" "wheel" "audio" "video" "libvirtd" "ydotool" ];
     };
 
     hardware = {
@@ -59,11 +59,11 @@ in
             powerManagement.enable = false;
             powerManagement.finegrained = false;
 
-            open = true;
+            open = false;
 
             nvidiaSettings = true;
 
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
+            package = config.boot.kernelPackages.nvidiaPackages.beta;
 
             nvidiaPersistenced = true;
         } else {};
@@ -82,7 +82,7 @@ in
     };
 
     boot = {
-        kernelModules = if desktop then ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"] else [];
+        kernelModules = if desktop then ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "uinput"] else [];
         kernelParams = if desktop then ["nvidia-drm.modeset=1" "nvidia_drm.fbdev=1"] else [];
 
         kernelPackages = pkgs.linuxPackages_zen;
@@ -216,7 +216,7 @@ in
         xserver = {
             enable = true;
 
-            videoDrivers = if desktop then ["modesetting" "nvidia"] else ["amdgpu"];
+            videoDrivers = if desktop then ["nvidia"] else ["amdgpu"];
             excludePackages = [pkgs.xterm];
 
             xkb = {
@@ -400,6 +400,8 @@ in
         #prismlauncher
 
         euphonica
+        
+        kooha
     ];
 
     environment = {
@@ -451,6 +453,8 @@ in
             nixfmt
             nixd
             nil
+
+            nh
 
             gnome-boxes
 
@@ -597,6 +601,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
 
             platformOptimizations.enable = true;
         };
+
+        ydotool.enable = true;
 
         gamescope = {
             enable = true;

@@ -272,6 +272,45 @@ in
             user = "bug";
         };
 
+        ollama = {
+            enable = true;
+
+            loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b" "deepseek-r1:8b"];
+        };
+        
+        /*
+        syncthing = {
+            enable = true;
+
+            extraFlags = [ "--no-default-folder" ];
+
+            settings = {
+                devices = if desktop then {
+                    "laptop" = { id = "DEVICE_ID_LAPTOP"; };
+                } else {
+                    "desktop" = { id = "DEVICE_ID_DESKTOP"; };
+                };
+
+                folders = {
+                    "nix" = {
+                        path = "~/nix";
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                    };
+
+                    "Documents" = {
+                        path = "~/Documents";
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                    };
+
+                    "Downloads" = {
+                        path = "~/Downloads";
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                    };
+                };
+            };
+        };
+        */
+
         flatpak = {
             enable = true;
 

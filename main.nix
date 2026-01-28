@@ -511,6 +511,8 @@ in
             micro
             
             inputs.hytale-launcher.packages.${pkgs.system}.default
+
+            baobab
         ] ++ (if desktop then [
             (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
                 tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];

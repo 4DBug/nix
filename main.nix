@@ -281,39 +281,12 @@ in
         syncthing = {
             enable = true;
 
-            key = "~/.syncthing/key.pem";
-            cert = "~/.syncthing/cert.pem";
-
+            user = "bug";
+            
             extraFlags = [ "--no-default-folder" ];
 
             openDefaultPorts = true;
-
             overrideFolders = true;
- 
-            settings = {
-                devices = if desktop then {
-                    "laptop" = { id = "C33XSW3-CUN7QOD-PK2SM37-MJCXNGA-K3UGTDR-TW53FZ7-BE7EWDC-QWVUXQ5"; };
-                } else {
-                    "desktop" = { id = "I664COC-GCOH2HX-KCVLP3R-R62LVPV-3W32DVQ-UMMBMDB-55MMIPH-OV54AAP"; };
-                };
-
-                folders = {
-                    "nix" = {
-                        path = "/home/bug/nix";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
-                    };
-
-                    "Documents" = {
-                        path = "/home/bug/Documents";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
-                    };
-
-                    "Downloads" = {
-                        path = "/home/bug/Downloads";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
-                    };
-                };
-            };
         };
 
         flatpak = {

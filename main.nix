@@ -288,7 +288,7 @@ in
  
             settings = {
                 devices = if desktop then {
-                    #"laptop" = { id = "DEVICE_ID_LAPTOP"; };
+                    "laptop" = { id = "C33XSW3-CUN7QOD-PK2SM37-MJCXNGA-K3UGTDR-TW53FZ7-BE7EWDC-QWVUXQ5"; };
                 } else {
                     "desktop" = { id = "I664COC-GCOH2HX-KCVLP3R-R62LVPV-3W32DVQ-UMMBMDB-55MMIPH-OV54AAP"; };
                 };
@@ -296,17 +296,17 @@ in
                 folders = {
                     "nix" = {
                         path = "~/nix";
-                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Documents" = {
                         path = "~/Documents";
-                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Downloads" = {
                         path = "~/Downloads";
-                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
                 };
             };

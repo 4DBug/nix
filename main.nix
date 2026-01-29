@@ -273,43 +273,44 @@ in
         };
 
         ollama = {
-            enable = true;
+            enable = false;
 
             loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b" "deepseek-r1:8b"];
         };
-        
-        /*
+
         syncthing = {
             enable = true;
+ 
+            key = "~/.syncthing/key.pem";
+            cert = "~/.syncthing/cert.pem";
 
             extraFlags = [ "--no-default-folder" ];
-
+ 
             settings = {
                 devices = if desktop then {
-                    "laptop" = { id = "DEVICE_ID_LAPTOP"; };
+                    #"laptop" = { id = "DEVICE_ID_LAPTOP"; };
                 } else {
-                    "desktop" = { id = "DEVICE_ID_DESKTOP"; };
+                    "desktop" = { id = "I664COC-GCOH2HX-KCVLP3R-R62LVPV-3W32DVQ-UMMBMDB-55MMIPH-OV54AAP"; };
                 };
 
                 folders = {
                     "nix" = {
                         path = "~/nix";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Documents" = {
                         path = "~/Documents";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Downloads" = {
                         path = "~/Downloads";
-                        devices = if desktop then [ "laptop" ] else [ "desktop" ];
+                        devices = []; #if desktop then [ "laptop" ] else [ "desktop" ];
                     };
                 };
             };
         };
-        */
 
         flatpak = {
             enable = true;

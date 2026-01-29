@@ -287,6 +287,8 @@ in
             extraFlags = [ "--no-default-folder" ];
 
             openDefaultPorts = true;
+
+            overrideFolders = true;
  
             settings = {
                 devices = if desktop then {
@@ -297,17 +299,17 @@ in
 
                 folders = {
                     "nix" = {
-                        path = "~/nix";
+                        path = "/home/bug/nix";
                         devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Documents" = {
-                        path = "~/Documents";
+                        path = "/home/bug/Documents";
                         devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
 
                     "Downloads" = {
-                        path = "~/Downloads";
+                        path = "/home/bug/Downloads";
                         devices = if desktop then [ "laptop" ] else [ "desktop" ];
                     };
                 };

@@ -280,11 +280,13 @@ in
 
         syncthing = {
             enable = true;
- 
+
             key = "~/.syncthing/key.pem";
             cert = "~/.syncthing/cert.pem";
 
             extraFlags = [ "--no-default-folder" ];
+
+            openDefaultPorts = true;
  
             settings = {
                 devices = if desktop then {

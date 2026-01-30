@@ -227,7 +227,21 @@ in
 
         fstrim.enable = true;
         
-        openssh.enable = true;
+        openssh = {
+            enable = true;
+
+            settings = {
+                PasswordAuthentication = false;
+                KbdInteractiveAuthentication = false;
+
+                PermitRootLogin = "no";
+                
+                PubkeyAuthentication = true;
+
+                X11Forwarding = true;
+                AllowTcpForwarding = true;
+            };
+        };
 
         pulseaudio.enable = false;
         
@@ -408,6 +422,8 @@ in
         euphonica
         
         kooha
+
+        loupe
     ];
 
     environment = {

@@ -278,37 +278,6 @@ in
             loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b" "deepseek-r1:8b"];
         };
 
-        syncthing = {
-            enable = true;
-
-            user = "bug";
-            group = "users";
-
-            overrideDevices = true;
-            overrideFolders = true;
-
-            openDefaultPorts = true;
-
-            extraFlags = [ "--no-default-folder" ];
- 
-            key = "/home/bug/.syncthing/key.pem";
-            cert = "/home/bug/.syncthing/cert.pem";
-
-            settings = {
-                devices = {
-                    desktop.id = "I664COC-GCOH2HX-KCVLP3R-R62LVPV-3W32DVQ-UMMBMDB-55MMIPH-OV54AAP";
-                    laptop.id = "C33XSW3-CUN7QOD-PK2SM37-MJCXNGA-K3UGTDR-TW53FZ7-BE7EWDC-QWVUXQ5";
-                };
-
-                folders = {
-                    "Documents" = {
-                        path = "/home/bug/Documents";
-                        devices = ["desktop" "laptop"];
-                    };
-                };
-            };
-        };
-
         flatpak = {
             enable = true;
 

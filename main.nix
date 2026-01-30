@@ -291,8 +291,8 @@ in
 
             extraFlags = [ "--no-default-folder" ];
  
-            key = "~/.syncthing/key.pem";
-            cert = "~/.syncthing/cert.pem";
+            key = "/home/bug/.syncthing/key.pem";
+            cert = "/home/bug/.syncthing/cert.pem";
 
             settings = {
                 devices = {

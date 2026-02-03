@@ -13,9 +13,29 @@
             url = "github:nix-community/stylix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        
+        nixVirt = {
+            url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        noctalia = {
+            url = "github:noctalia-dev/noctalia-shell";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        quickshell = {
+            url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        dms-plugin-registry = {
+            url = "github:AvengeMedia/dms-plugin-registry";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, ... }:
+    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, nixVirt, noctalia, quickshell, dms-plugin-registry, ... }:
     let
     	deviceType = import /etc/nixos/device.nix;
         system = "x86_64-linux";
@@ -36,7 +56,7 @@
 
                 flatpaks.nixosModules.nix-flatpak
                 
-                stylix.nixosModules.stylix
+                nixVirt.nixosModules.default
                 
                 ./configuration.nix
             ];

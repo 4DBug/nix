@@ -1,11 +1,17 @@
 { lib, config, inputs, pkgs, options, desktop, ... }:
 
 let
+    #inherit (inputs) nixVirt;
+    #nixvirt.lib = nixVirt.lib;
+
     nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
 
     nix-alien = import (
         builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
     ) {};
+
+    #nvramPath = "/home/bug/.local/share/libvirt/qemu";
+    #win10Config = import ./vms/win10.nix { inherit pkgs nvramPath; uuid = "c08333dc-33f9-4117-969a-ac46e19ba81f"; };
 in
 {
     imports = [
@@ -29,7 +35,7 @@ in
     users.users.bug = {
         isNormalUser = true;
         description = "Bug";
-        extraGroups = [ "networkmanager" "wheel" "audio" "video" "libvirtd" "ydotool" ];
+        extraGroups = [ "networkmanager" "wheel" "audio" "video" "libvirtd" "ydotool" "dialout" ];
     };
 
     hardware = {
@@ -138,7 +144,6 @@ in
     };
 
     services.cloudflare-warp.enable = !desktop;
-    
 
     security = {
         rtkit.enable = true;
@@ -318,6 +323,18 @@ in
                         sha256 = "sha256-SUxfyovC2umZmsOj5bOTZ8WfGCpnWcz7svOESwNekV0=";
                     }}";
                 }
+
+                # add Polytoria client
+                # https://cdn.polytoria.com/releases/installer/linux/Polytoria%20Setup%204.12.0.flatpak
+
+                {
+                    appId = "com.polytoria.launcher";
+                    sha256 = "sha256-VjhNiJfSdCtlH2SuP3Mn8jjOrx5xcOqhtDKaWYIwxYg=";
+                    bundle = "${pkgs.fetchurl {
+                        url = "https://github.com/4DBug/poly/releases/download/poly/poly.flatpak";
+                        sha256 = "sha256-VjhNiJfSdCtlH2SuP3Mn8jjOrx5xcOqhtDKaWYIwxYg=";
+                    }}";
+                }
             ];
 
             overrides = {
@@ -400,7 +417,6 @@ in
         obsidian
         vesktop
         nicotine-plus
-        ptyxis
         fastfetch
         tree
         gh
@@ -408,7 +424,6 @@ in
         samrewritten
         impression
 
-        # resources
         mission-center
         
         authenticator
@@ -424,6 +439,8 @@ in
         kooha
 
         loupe
+
+        arduino-ide
     ];
 
     environment = {
@@ -546,7 +563,15 @@ in
                 extraPkgs = pkgs: [ pkgs.xorg.libxshmfence pkgs.linuxPackages.nvidia_x11 ];
             })
         ] else [
+            (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
+                tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
+            })
+
             bambu-studio
+
+            inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+            kitty
         ]);
     };
 
@@ -564,11 +589,65 @@ in
     };
     
     virtualisation = {
+        /*
+        libvirt = {
+            enable = true;
+
+            connections."qemu:///system" = {
+                networks = [
+                    {
+                        definition = nixvirt.lib.network.writeXML (nixvirt.lib.network.templates.bridge {
+                            name = "default";
+                            uuid = "cda3b7dd-71fd-44e3-8093-340f47a88c83";
+                            subnet_byte = 122;
+                            bridge_name = "virbr0";
+                        });
+
+                        active = true;
+                    }
+                ];
+                
+                domains = lib.mkForce [
+                    { definition = nixvirt.lib.domain.writeXML win10Config; }
+                ];
+            };
+        };
+        */
+
         libvirtd.enable = true;
+
         spiceUSBRedirection.enable = true;
     };
 
     programs = {
+        hyprland.enable = !desktop;
+        labwc.enable = !desktop;
+
+        dms-shell = {
+            enable = false; # !desktop;
+
+            enableSystemMonitoring = true;
+            enableClipboard = true;
+            enableDynamicTheming = true;
+            enableAudioWavelength = true;
+            enableCalendarEvents = true;
+
+            plugins = {
+                #nixMonitor.enable = true;
+
+                DankNixMonitor = {
+                    enable = true;
+                        src = pkgs.fetchFromGitHub {
+                        owner = "antonjah";
+                        repo = "nix-monitor";
+                        rev = "f3dbe00";
+                        hash = "sha256-biRc7ESKzPK5Ueus1xjVT8OXCHar3+Qi+Osv/++A+Ls=";
+                    };
+                };
+            };
+        };
+
+
         appimage = {
             enable = true;
             binfmt = true;
@@ -636,6 +715,8 @@ ssh -R \"$\{name}:80:localhost:$\{port}\" tuns.sh'\'' _";
                 "--expose-wayland"
             ];
         };
+
+        virt-manager.enable = true;
 
         nix-ld = {
             enable = true;

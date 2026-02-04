@@ -1,0 +1,1 @@
+{ device = "laptop"; } # Possible values: "desktop", "laptop", "server"

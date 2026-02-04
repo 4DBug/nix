@@ -29,14 +29,14 @@
                 libva-utils
                 libglvnd
                 mesa
-            ] ++ (if desktop then [
+            ] ++ (if (device == "desktop") then [
                 nvidia-vaapi-driver
             ] else [
                 
             ]);
         };
 
-        nvidia = if desktop then {
+        nvidia = if (device == "desktop") then {
             modesetting.enable = true;
 
             powerManagement.enable = false;
@@ -79,5 +79,10 @@
         } else {
 
         });
+    };
+
+    services.logind.settings.Login = {
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchDocked = "ignore";
     };
 }

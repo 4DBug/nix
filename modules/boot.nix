@@ -7,10 +7,6 @@
 
         kernelPackages = pkgs.linuxPackages_zen;
 
-        kernel.sysctl = {
-            "fs.file-max" = 524288;
-        };
-        
         initrd.checkJournalingFS = false;
 
         loader = {
@@ -23,15 +19,5 @@
 
             efi.canTouchEfiVariables = true;
         };
-    };
-            
-    swapDevices = [{
-        device = "/var/lib/swapfile";
-        size = 8 * 1024;
-    }];
-    
-    zramSwap = {
-        enable = true;
-        memoryMax = 64 * 1024 * 1024 * 1024;
     };
 }

@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, options, desktop, ... }:
+{ lib, config, inputs, pkgs, options, device, ... }:
 
 let
     nix-gaming = import (builtins.fetchTarball "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
@@ -192,7 +192,7 @@ in
         inputs.hytale-launcher.packages.${pkgs.system}.default
 
         baobab
-    ] ++ (if desktop then [
+    ] ++ (if (device == "desktop") then [
         (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
             tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
         })

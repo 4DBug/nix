@@ -1,0 +1,68 @@
+{ config, pkgs, device, ... }:
+
+{
+    services.syncthing = {
+        enable = true;
+
+        overrideDevices = true;
+        overrideFolders = true;
+
+        key = "/home/bug/.syncthing/key.pem";
+        cert = "/home/bug/.syncthing/cert.pem";
+
+        settings = {
+            devices = {
+                desktop.id = "VEZXY3W-U6UXWTP-6BHANIG-O5EKNZY-XNV5YOX-4V4O3HB-ETECIUX-T2DK7AV";
+                laptop.id = "I6NW53P-IJMMT73-7O53TXY-3GAHS2U-4EAADM7-ZNB5ZPB-62QHKVW-H7DYXQ2";
+                server.id = "KJECAIP-Y2Y3FHV-NOJKIQV-LWIDMMZ-5ITEAZ4-LQCQL72-3BGW6T7-BFPFJQA";
+            };
+
+            folders = {
+                "Documents" = {
+                    path = "/home/bug/Documents";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "Downloads" = {
+                    path = "/home/bug/Downloads";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "Pictures" = {
+                    path = "/home/bug/Pictures";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "Videos" = {
+                    path = "/home/bug/Videos";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "nix" = {
+                    path = "/home/bug/nix";
+                    devices = ["desktop" "laptop" "server"];
+
+                    ignorePatterns = [
+                        "device.nix"
+                        "hardware-configuration.nix"
+                    ];
+                };
+
+                "home-manager" = {
+                    path = "/home/bug/.config/home-manager";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "hytale" = {
+                    path = "/home/bug/.local/share/Hytale/UserData/Saves";
+                    devices = ["desktop" "laptop"];
+                };
+
+                "ssh" = {
+                    path = "/home/bug/.ssh";
+                    devices = ["desktop" "laptop"];
+                };
+            };
+        };
+    };
+}

@@ -71,7 +71,7 @@
                 };
                 
                 modules = [
-                    stylix.homeManagerModules.stylix
+                    stylix.homeModules.stylix
                     
                     ./home.nix
                 ];

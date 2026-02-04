@@ -53,8 +53,6 @@
 
                 modules = [
                 	./main.nix
-                	
-                    flatpaks.nixosModules.nix-flatpak
 
                 	vscode-server.nixosModules.default
                 ];

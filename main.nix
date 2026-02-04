@@ -10,7 +10,7 @@
         ./modules/locale.nix
         ./modules/security.nix
     ] ++ (if device == "server" then [
-        ./modules/packages.nix
+        ./modules/mailserver.nix
         ./modules/vscode-server.nix
 
         ({ pkgs, ... }: {

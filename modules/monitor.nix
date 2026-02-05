@@ -104,7 +104,6 @@
         }
       ];
       scrape_configs = [
-		# For systemd logs
         {
           job_name = "journal";
           journal = {
@@ -122,7 +121,7 @@
             }
           ];
         }
-		# For nginx logs
+        
         {
           job_name = "nginx";
           static_configs = [
@@ -141,7 +140,6 @@
     };
   };
 
-  # this puts the folder dashboards on the host system at /etc/grafana/dashboards
   environment.etc."grafana/dashboards" = {
     source = ./dashboards;
     user = "grafana";
@@ -168,7 +166,6 @@
       enable = true;
       dashboards.settings.providers = [
         {
-          # this tells grafana to look at the path for dashboards
           options.path = "/etc/grafana/dashboards";
         }
       ];

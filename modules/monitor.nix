@@ -111,7 +111,7 @@
             max_age = "12h";
             labels = {
               job = "systemd-journal";
-              host = "your_hostname";
+              host = "box";
               instance = "127.0.0.1";
             };
           };
@@ -131,7 +131,7 @@
               labels = {
                 job = "nginx";
                 __path__ = "/var/log/nginx/*.log";
-                host = "your_hostname";
+                host = "box";
                 instance = "127.0.0.1";
               };
             }

@@ -18,6 +18,11 @@
         vscode-server.url = "github:nix-community/nixos-vscode-server";
 
         home-manager.url = "github:nix-community/home-manager";
+
+        nix-citizen.url = "github:LovingMelody/nix-citizen";
+
+        nix-gaming.url = "github:fufexan/nix-gaming";
+        nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, ... }:

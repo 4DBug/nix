@@ -193,10 +193,12 @@ in
 
         baobab
     ] ++ (if (device == "desktop") then [
-        (nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
-            tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
-        })
+        #(nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
+        #    tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
+        #})
 
+        inputs.nix-citizen.packages.${system}.rsi-launcher
+        
         libxshmfence
 
         (appimage-run.override {
@@ -204,6 +206,8 @@ in
         })
     ] else [
         bambu-studio
+
+        inputs.nix-citizen.packages.${system}.rsi-launcher
     ]);
 
     services = {

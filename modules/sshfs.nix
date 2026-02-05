@@ -12,7 +12,7 @@
     device = "bug@box.bug.tools:/";
     fsType = "fuse.sshfs";
     options = [
-      "identityfile=/home/youruser/.ssh/id_ed25519"
+      "identityfile=/home/bug/.ssh/id_ed25519"
       "allow_other"
       "x-systemd.automount" 
       "noauto"

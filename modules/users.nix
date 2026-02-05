@@ -13,7 +13,7 @@
             description = "levi";
             extraGroups = [ "wheel"];
 
-            hashedPassword = "$6$AqsDy7oxFOpjKZLM$kD0y3sc1b9xPTveqThhv2EyyhDh0WELrznYwCOQmZzVqEVWs6iG8PmLMstWSfpdloljciEW09u8vTRi1h0EBw1";
+            hashedPasswordFile = "/home/bug/users/levi.passwd";
         };
     } else {});
 }

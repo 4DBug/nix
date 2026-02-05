@@ -20,22 +20,22 @@
             folders = {
                 "Documents" = {
                     path = "/home/bug/Documents";
-                    devices = ["desktop" "laptop"];
+                    devices = ["desktop" "laptop" "server"];
                 };
 
                 "Downloads" = {
                     path = "/home/bug/Downloads";
-                    devices = ["desktop" "laptop"];
+                    devices = ["desktop" "laptop" "server"];
                 };
 
                 "Pictures" = {
                     path = "/home/bug/Pictures";
-                    devices = ["desktop" "laptop"];
+                    devices = ["desktop" "laptop" "server"];
                 };
 
                 "Videos" = {
                     path = "/home/bug/Videos";
-                    devices = ["desktop" "laptop"];
+                    devices = ["desktop" "laptop" "server"];
                 };
 
                 "nix" = {
@@ -48,11 +48,6 @@
                     ];
                 };
 
-                "home-manager" = {
-                    path = "/home/bug/.config/home-manager";
-                    devices = ["desktop" "laptop"];
-                };
-
                 "hytale" = {
                     path = "/home/bug/.local/share/Hytale/UserData/Saves";
                     devices = ["desktop" "laptop"];
@@ -60,7 +55,7 @@
 
                 "ssh" = {
                     path = "/home/bug/.ssh";
-                    devices = ["desktop" "laptop"];
+                    devices = ["desktop" "laptop" "server"];
                 };
             };
         };

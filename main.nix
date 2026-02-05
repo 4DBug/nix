@@ -24,10 +24,11 @@
         ./modules/graphics.nix
         ./modules/audio.nix
         ./modules/home-manager.nix
-        ./modules/mpd.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
-    ]);
+    ]) ++ (if device == "laptop" then [
+        ./modules/mpd.nix
+    ] else []);
 
     system = {
         stateVersion = "25.11";

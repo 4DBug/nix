@@ -3,7 +3,7 @@
 {
     services = {
         mpd = {
-            enable = (device == "laptop");
+            enable = true;
 
             settings = {
                 music_directory = "/run/media/bug/Music/";

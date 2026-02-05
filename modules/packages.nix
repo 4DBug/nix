@@ -41,33 +41,33 @@ in
 
         go
 
-        (python3.withPackages (ps: with ps; [
-            unidecode
-            discordpy
-            setuptools
+        #(python3.withPackages (ps: with ps; [
+            #unidecode
+            #discordpy
+            #setuptools
 
-            pip
-            pynput
-            python-uinput
+            #pip
+            #pynput
+            #python-uinput
 
-            mido
+            #mido
 
-            pyautogui
-            pygobject3
-            pycairo
+            #pyautogui
+            #pygobject3
+            #pycairo
 
-            tkinter
+            #tkinter
 
-            numpy
-            scipy
-            imageio
+            #numpy
+            #scipy
+            #imageio
 
-            evdev
-        ]))
+            #evdev
+        #]))
 
         nodejs
 
-        (blender.withPackages (ps: with ps; [
+        /*(blender.withPackages (ps: with ps; [
             libGLU
             gcc
             zlib
@@ -78,6 +78,7 @@ in
             xorg.libxcb
             glib
         ]))
+        */
 
         plasticity
         obsidian

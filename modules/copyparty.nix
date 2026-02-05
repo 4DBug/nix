@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-    nixpkgs.overlays = [ copyparty.overlays.default ];
+    nixpkgs.overlays = [ inputs.copyparty.overlays.default ];
 
     services.copyparty = {
         enable = true;

@@ -67,7 +67,7 @@ in
 
         nodejs
 
-        /*(blender.withPackages (ps: with ps; [
+        (blender.withPackages (ps: with ps; [
             libGLU
             gcc
             zlib
@@ -78,7 +78,6 @@ in
             xorg.libxcb
             glib
         ]))
-        */
 
         plasticity
         obsidian

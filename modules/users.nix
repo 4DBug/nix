@@ -11,7 +11,7 @@
         levi = {
             isNormalUser = true;
             description = "levi";
-            extraGroups = [ "wheel"];
+            extraGroups = [];
 
             hashedPasswordFile = "/home/bug/users/levi.passwd";
         };

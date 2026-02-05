@@ -13,7 +13,7 @@
         ./modules/mailserver.nix
         ./modules/vscode-server.nix
         ./modules/copyparty.nix
-        ./modules/netdata.nix
+        ./modules/monitor.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [

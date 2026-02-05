@@ -12,6 +12,7 @@
     ] ++ (if device == "server" then [
         ./modules/mailserver.nix
         ./modules/vscode-server.nix
+        ./modules/copyparty.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [

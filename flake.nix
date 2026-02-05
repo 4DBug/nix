@@ -23,6 +23,8 @@
 
         nix-gaming.url = "github:fufexan/nix-gaming";
         nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+
+        copyparty.url = "github:9001/copyparty";
     };
 
     outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, ... }:
@@ -60,6 +62,8 @@
                 	./main.nix
 
                 	vscode-server.nixosModules.default
+                    
+                    copyparty.nixosModules.default
                 ];
             };
         };

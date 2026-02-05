@@ -27,7 +27,7 @@
         copyparty.url = "github:9001/copyparty";
     };
 
-    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, ... }:
+    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, copyparty, ... }:
     let
     	deviceType = import ./device.nix;
         system = "x86_64-linux";
@@ -62,7 +62,7 @@
                 	./main.nix
 
                 	vscode-server.nixosModules.default
-                    
+
                     copyparty.nixosModules.default
                 ];
             };

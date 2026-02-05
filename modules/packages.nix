@@ -206,8 +206,6 @@ in
         })
     ] else [
         bambu-studio
-
-        inputs.nix-citizen.packages.${system}.rsi-launcher
     ]);
 
     services = {

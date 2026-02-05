@@ -26,6 +26,7 @@
         ./modules/home-manager.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
+        ./modules/sshfs.nix
     ]) ++ (if device == "laptop" then [
         ./modules/mpd.nix
     ] else []);

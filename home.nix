@@ -16,9 +16,13 @@
         stateVersion = "25.11";
 
         packages = with pkgs; [
+            
+        ] ++ (if device == "server" then [
             gh
             luajit
-        ];
+            nodejs
+            node2nix
+        ] else []);
 
         file = {};
         

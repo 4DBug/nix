@@ -76,7 +76,7 @@
         bash.shellAliases = {
             fetch = "fastfetch --file ~/nix/nix.ans";
 
-            rebuild = "ns os switch ~/nix"; #"sudo nixos-rebuild switch --impure"; # home-manager switch --impure
+            rebuild = "nh os switch ~/nix"; #"sudo nixos-rebuild switch --impure"; # home-manager switch --impure
 
             #pissh = "ssh -t $(avahi-resolve-host-name -4 pi.home | awk '{print $2}')";
             #pi = "pissh \"cd $(pwd) && bash\"";

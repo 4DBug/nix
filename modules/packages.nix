@@ -198,7 +198,7 @@ in
         #})
 
         inputs.nix-citizen.packages.${system}.rsi-launcher
-        
+
         libxshmfence
 
         (appimage-run.override {

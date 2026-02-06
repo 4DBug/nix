@@ -6,7 +6,7 @@
     services.copyparty = {
         enable = true;
 
-        user = "copyparty";
+        user = "bug";
 
         group = "copyparty";
 
@@ -19,7 +19,7 @@
 
         accounts = {
             bug = {
-                passwordFile = "";
+                passwordFile = "/home/bug/mailserver/bug.passwd";
             };
         };
 

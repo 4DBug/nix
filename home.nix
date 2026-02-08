@@ -4,7 +4,7 @@
     imports = [
         ./modules/syncthing.nix
     ] ++ (if device == "server" then [
-
+        
     ] else [
         ./modules/stylix.nix
         #./modules/firefox.nix

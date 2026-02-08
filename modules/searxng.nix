@@ -6,9 +6,11 @@
         redisCreateLocally = true;
 
         settings.server = {
-            bind_address = "::1";
+            bind_address = "127.0.0.1";
             
-            port = 8080;
+            port = 1025;
         };
+
+        environmentFile = "/home/bug/nix/modules/searxng_key";
     };
 }

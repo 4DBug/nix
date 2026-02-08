@@ -83,6 +83,12 @@
             #pi = "ssh pi.bug.tools";
             box = "ssh box.bug.tools";
 
+            unbox = "sh -c 'ssh -N -L \"$1\":0.0.0.0:\"$1\" box.bug.tools &' --";
+
+            rebox = "sh -c 'fuser -k \"$1\"/tcp' --";
+
+            dock = "sh -c 'ssh -N -D \"$1\" box.bug.tools &' --";
+            
             pico = "ssh pico.sh";
 
             # tuns name port

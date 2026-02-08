@@ -113,7 +113,7 @@ in
 
     environment.systemPackages = with pkgs; [
         home-manager
-        comma
+        comma # run nixpkgs without installing
         nix-index
 
         git
@@ -127,15 +127,15 @@ in
 
         nix-prefetch
         nix-output-monitor
-        nvd
+        nvd # nix pkg diff
 
-        nixfmt
-        nixd
-        nil
+        nixfmt # nix formatter
+        nixd # nix language server
+        nil # nix language server
 
-        nh
+        nh # nix helper
 
-        gnome-boxes
+        gnome-boxes # gnome vm manager
 
         openjdk
         zlib
@@ -192,6 +192,8 @@ in
         inputs.hytale-launcher.packages.${pkgs.system}.default
 
         baobab
+
+        psmisc
     ] ++ (if (device == "desktop") then [
         #(nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
         #    tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
@@ -284,6 +286,14 @@ in
     };
 
     programs = {
+        rsi-launcher = {
+            enable = (device == "desktop");
+
+            preCommands = ''
+                export DISPLAY=;
+            '';
+        };
+
         appimage = {
             enable = true;
             binfmt = true;

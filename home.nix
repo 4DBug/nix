@@ -7,6 +7,7 @@
 
     ] else [
         ./modules/stylix.nix
+        ./modules/firefox.nix
     ]);
 
     home = {

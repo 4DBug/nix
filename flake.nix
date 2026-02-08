@@ -27,7 +27,7 @@
         copyparty.url = "github:9001/copyparty";
     };
 
-    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, copyparty, ... }:
+    outputs = inputs@{ self, nixpkgs, stylix, home-manager, flatpaks, hytale-launcher, vscode-server, copyparty, nix-citizen, ... }:
     let
     	deviceType = import ./device.nix;
         system = "x86_64-linux";
@@ -46,6 +46,8 @@
                             trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
                         };
                     }
+
+                    nix-citizen.nixosModules.default
 
                     flatpaks.nixosModules.nix-flatpak
 

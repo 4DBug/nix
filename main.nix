@@ -13,7 +13,7 @@
         ./modules/mailserver.nix
         ./modules/vscode-server.nix
         ./modules/copyparty.nix
-        ./modules/monitor.nix
+        ./modules/searxng.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [
@@ -25,10 +25,10 @@
         ./modules/cosmic.nix
         ./modules/graphics.nix
         ./modules/audio.nix
-        ./modules/home-manager.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
         ./modules/sshfs.nix
+        #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [
         ./modules/mpd.nix
     ] else []);

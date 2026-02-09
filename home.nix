@@ -23,6 +23,7 @@
             luajit
             nodejs
             node2nix
+            cloudflared
         ] else []);
 
         file = {};

@@ -14,6 +14,7 @@
         ./modules/vscode-server.nix
         ./modules/copyparty.nix
         ./modules/searxng.nix
+        ./modules/cloudflared.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [
@@ -27,7 +28,6 @@
         ./modules/audio.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
-        ./modules/sshfs.nix
 
         #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [

@@ -57,6 +57,11 @@
                     path = "/home/bug/.ssh";
                     devices = ["desktop" "laptop" "server"];
                 };
+
+                "cloudflared" = {
+                    path = "/home/bug/.cloudflared";
+                    devices = ["desktop" "laptop" "server"];
+                };
             };
         };
     };

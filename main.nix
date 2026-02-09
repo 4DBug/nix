@@ -13,7 +13,7 @@
         ./modules/mailserver.nix
         ./modules/vscode-server.nix
         ./modules/copyparty.nix
-        ./modules/fedi/searxng.nix
+        ./modules/searxng.nix
         ./modules/cloudflared.nix
         ./modules/invidious.nix
 

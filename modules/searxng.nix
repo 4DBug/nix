@@ -1,33 +1,21 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-    services.searx = {
-        enable = true;
+  systemd.services.searx-init.serviceConfig.EnvironmentFile = [
+    "/home/bug/.searxng.env"
+  ];
+  
+  services.searx = {
+    enable = true;
+    redisCreateLocally = false;
+    configureUwsgi = false;
+    settingsFile = config/searxng.yml;
+    environmentFile = "/home/bug/.searxng.env";
 
-        environmentFile = "/home/bug/nix/modules/searxng_key";
-        redisCreateLocally = true;
-
-        settings = {
-            server = {
-                bind_address = "127.0.0.1";
-                port = 1025;
-                secret_key = "test";
-            };
-
-            general = {
-                instance_name = "search.bug.tools";
-            };
-
-            engines = {
-                remove = [
-                    "ahmia"
-                    "torch"
-                    "radio_browser"
-                    "wikidata"
-                ];
-            };
-
-            limiter.enable = false;
-        };
+    settings = {
+      server.port = 1025;
+      server.bind_address = "0.0.0.0";
+      server.secret_key = "$SEARX_SECRET_KEY";
     };
+  };
 }

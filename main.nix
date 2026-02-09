@@ -13,8 +13,9 @@
         ./modules/mailserver.nix
         ./modules/vscode-server.nix
         ./modules/copyparty.nix
-        ./modules/searxng.nix
+        ./modules/fedi/searxng.nix
         ./modules/cloudflared.nix
+        ./modules/invidious.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [

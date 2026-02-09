@@ -136,6 +136,7 @@ in
         nh # nix helper
 
         gnome-boxes # gnome vm manager
+        vulkan-tools
 
         openjdk
         zlib
@@ -149,7 +150,7 @@ in
 
         appimage-run
 
-        vulkan-tools
+        
         vulkan-validation-layers
         vulkan-loader
 

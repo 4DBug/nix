@@ -6,17 +6,20 @@ in
 {
     environment.systemPackages = [ pkgs.cloudflared ];
 
+    environment.etc."cloudflared/${TUNNEL_UUID}.json".source = "/home/bug/.cloudflared/${TUNNEL_UUID}.json";
+
     services.cloudflared = {
         enable = true;
 
         tunnels."${TUNNEL_UUID}" = {
-            credentialsFile = "/home/bug/.cloudflared/${TUNNEL_UUID}.json";
+            credentialsFile = "/etc/cloudflared/${TUNNEL_UUID}.json";
             default = "http_status:404";
 
             ingress = {
                 #"tv.bug.tools"     = "http://127.0.0.1:8080";
                 #"search.bug.tools" = "http://127.0.0.1:3000";
-                "files2.bug.tools"  = "http://127.0.0.1:3210";
+                "files.bug.tools"  = "http://127.0.0.1:3210";
+                "tube.bug.tools"  = "http://127.0.0.1:3030";
             };
         };
     };

@@ -11,6 +11,7 @@
             server = {
                 bind_address = "127.0.0.1";
                 port = 1025;
+                secret_key = "test";
             };
 
             general = {

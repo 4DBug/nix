@@ -28,11 +28,12 @@
         ./modules/swap.nix
         ./modules/virtualisation.nix
         ./modules/sshfs.nix
+
         #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [
         ./modules/mpd.nix
     ] else []) ++ (if device == "desktop" then [
-        ./modules/openrgb.nix
+
     ] else []);
 
     system = {

@@ -17,6 +17,7 @@
         ./modules/cloudflared.nix
         ./modules/invidious.nix
         ./modules/glances.nix
+        ./modules/redlib.nix
 
         ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [

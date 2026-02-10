@@ -1,36 +1,24 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.nixos = {
-    server.fediverse.invidious = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        example = true;
-        description = "Enable Invidious.";
-      };
-    };
-  };
-
-  config = lib.mkIf config.nixos.server.fediverse.invidious.enable {
-    services.invidious = {
+  services.invidious = {
       enable = true;
       # sig helper is deprecated -> waiting for nixos pkg update to Invidious companion (see: https://docs.invidious.io/installation/#hardware-requirements)
-      #sig-helper = {
-      #  enable = true;
-      #  listenAddress = "127.0.0.1:2999";
-      #};
-      port = 3000;
-      domain = "invidious.${config.nixos.server.network.nginx.domain}";
+      sig-helper = {
+        enable = true;
+        listenAddress = "127.0.0.1:2999";
+      };
+      port = 3030;
+      domain = "tube.bug.tools";
       settings = {
-        #signature_server = "127.0.0.1:2999";
+        signature_server = "127.0.0.1:2999";
         https_only = true;
         hsts = true;
         external_port = 443;
         popular_enabled = true;
         statistics_enabled = true;
         registration_enabled = false;
-        login_enabled = false;
+        login_enabled = true;
         captcha_enabled = false;
         enable_user_notifications = false;
         channel_threads = 2;
@@ -81,24 +69,4 @@
         };
       };
     };
-
-    services.nginx = {
-      virtualHosts = {
-        "invidious.${config.nixos.server.network.nginx.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-          acmeRoot = null;
-          kTLS = true;
-          http2 = false;
-          locations."/" = {
-            proxyPass = "http://localhost:3000";
-          };
-        };
-      };
-    };
-
-    services.ddclient.domains = [
-      "invidious.${config.nixos.server.network.nginx.domain}"
-    ];
-  };
 }

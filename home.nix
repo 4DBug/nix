@@ -7,7 +7,7 @@
         
     ] else [
         ./modules/stylix.nix
-        #./modules/firefox.nix
+        ./modules/firefox.nix
     ]);
 
     home = {
@@ -36,5 +36,5 @@
 
     nixpkgs.config.allowUnfree = true;
     
-    programs.home-manager.enable = true;
+    #programs.home-manager.enable = true;
 }

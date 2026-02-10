@@ -29,7 +29,7 @@
         ./modules/audio.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
-
+        
         #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [
         ./modules/mpd.nix

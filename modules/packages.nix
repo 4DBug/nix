@@ -195,6 +195,8 @@ in
         baobab
 
         psmisc
+
+        firefox-bin
     ] ++ (if (device == "desktop") then [
         #(nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.star-citizen.override {
         #    tricks = [ "arial" "vcrun2019" "win10" "sound=alsa" ];
@@ -300,11 +302,11 @@ in
             binfmt = true;
         };
 
-        firefox = {
-            enable = true;
-
-            package = pkgs.firefox-bin;
-        };
+        #firefox = {
+        #    enable = true;
+        
+        #    package = pkgs.firefox-bin;
+        #};
 
         steam = {
             enable = true;

@@ -5,6 +5,15 @@
         enable = true;
         package = pkgs.librewolf;
 
+        profiles = {
+            "bug" = {
+                id = 0;
+                name = "bug";
+                isDefault = true;
+
+            };
+        };
+
         policies = {
             DisableTelemetry = true;
             DisableFirefoxStudies = true;
@@ -25,6 +34,7 @@
                 "webgl.disabled" = false;
             };
 
+            /*
             ExtensionSettings = {
                 # catppuccin no borders https://addons.mozilla.org/en-US/firefox/addon/catppuccin-mocha-no-borders/
                 "catppuccin-mocha-no-borders@skyrpex" = {
@@ -74,6 +84,7 @@
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/btroblox/latest.xpi";
                 };
             };
+            */
         };
     };
 }

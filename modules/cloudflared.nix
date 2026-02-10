@@ -16,10 +16,10 @@ in
             default = "http_status:404";
 
             ingress = {
-                #"tv.bug.tools"     = "http://127.0.0.1:8080";
-                #"search.bug.tools" = "http://127.0.0.1:3000";
-                "files.bug.tools"  = "http://127.0.0.1:3210";
-                "tube.bug.tools"  = "http://127.0.0.1:3030";
+                "tvtun.bug.tools" = "http://127.0.0.1:3001";
+                "search.bug.tools" = "http://127.0.0.1:8888";
+                "files.bug.tools" = "http://127.0.0.1:3210";
+                "tube.bug.tools" = "http://127.0.0.1:3030";
             };
         };
     };

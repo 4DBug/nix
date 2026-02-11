@@ -37,7 +37,7 @@ in
 
         settings = {
             domain = "tube.bug.tools";
-            https_only = true;
+            https_only = false;
             external_port = 3030;
 
             invidious_companion = [

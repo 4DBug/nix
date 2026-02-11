@@ -9,7 +9,7 @@
     enable = true;
     redisCreateLocally = false;
     configureUwsgi = false;
-    settingsFile = config/searxng.yml;
+    settingsFile = ./searxng.yml;
     environmentFile = "/home/bug/.searxng.env";
 
     settings = {

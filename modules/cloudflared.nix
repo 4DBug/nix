@@ -21,6 +21,7 @@ in
                 "files.bug.tools" = "http://127.0.0.1:3210";
                 "tube.bug.tools" = "http://127.0.0.1:3030";
                 "monitor.bug.tools" = "http://127.0.0.1:61208";
+                "reddit.bug.tools" = "http://127.0.0.1:8975";
             };
         };
     };

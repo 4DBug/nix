@@ -33,7 +33,7 @@
         ./modules/virtualisation.nix
         ./modules/mpd.nix
         ./modules/sshfs.nix
-        
+
         #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [
         

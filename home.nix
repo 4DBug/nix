@@ -7,6 +7,8 @@
         
     ] else [
         ./modules/stylix.nix
+        ./modules/beets.nix
+        
         #./modules/firefox.nix
     ]);
 

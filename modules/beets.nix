@@ -4,6 +4,8 @@
     home = {
         packages = with pkgs; [
             beets
+            ffmpeg
+            chromaprint
         ];
 
         file.".config/beets/config.yaml".text = ''
@@ -14,19 +16,24 @@
                 write: true
                 copy: true
 
-            plugins: [convert fetchart embedart fromfilename chroma smartplaylist]
+            plugins:
+                - convert
+                - fetchart
+                - embedart
+                - fromfilename
+                - chroma
+                - smartplaylist
 
             paths:
-                default: $artist/$album/$track
+                default: $artist/$album/$track - $title
 
             convert:
                 auto: true
                 format: opus
                 formats:
-                    opus:
-                    command: ffmpeg -i $source -y -vn -c:a libopus -b:a 160k $dest
-                    extension: opus
-                dest: ~/Music
+                    opus: ffmpeg -i $source -y -vn -c:a libopus -b:a 160k $dest
+                dest: /home/bug/Music
+
 
             fetchart:
                 auto: yes

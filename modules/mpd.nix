@@ -6,7 +6,7 @@
             enable = true;
 
             settings = {
-                music_directory = "/run/media/bug/Music/";
+                music_directory = (if (device == "desktop") then "/home/bug/Music" else "/run/media/bug/Music/");
 
                 decoder = [
                     {

@@ -71,11 +71,11 @@ in
             libGLU
             gcc
             zlib
-            xorg.libX11
+            libX11
             fontconfig
             pcre2
-            xorg.libXext
-            xorg.libxcb
+            libXext
+            libxcb
             glib
         ]))
 
@@ -231,6 +231,7 @@ in
                 "org.gnome.Decibels"
                 "org.pipewire.Helvum"
                 "community.pathofbuilding.PathOfBuilding"
+                "io.github.gaheldev.Millisecond"
 
                 {
                     appId = "com.hytale.Launcher";
@@ -302,11 +303,11 @@ in
             binfmt = true;
         };
 
-        #firefox = {
-        #    enable = true;
+        firefox = {
+            enable = true;
         
-        #    package = pkgs.firefox-bin;
-        #};
+            package = pkgs.firefox-bin;
+        };
 
         steam = {
             enable = true;
@@ -349,10 +350,10 @@ in
                 mesa
                 libglvnd
                 wayland
-                xorg.libX11
-                xorg.libXcursor
-                xorg.libXrandr
-                xorg.libXi
+                libX11
+                libXcursor
+                libXrandr
+                libXi
             ]);
         };
     };

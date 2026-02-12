@@ -31,10 +31,12 @@
         ./modules/audio.nix
         ./modules/swap.nix
         ./modules/virtualisation.nix
+        ./modules/mpd.nix
+        ./modules/sshfs.nix
         
         #./modules/firefox.nix
     ]) ++ (if device == "laptop" then [
-        ./modules/mpd.nix
+        
     ] else []) ++ (if device == "desktop" then [
 
     ] else []);

@@ -62,6 +62,11 @@
                     path = "/home/bug/.cloudflared";
                     devices = ["desktop" "laptop" "server"];
                 };
+
+                "Music" = {
+                    path = (if (device == "desktop") then "/home/bug/Music" else "/run/media/bug/Music/");
+                    devices = ["desktop" "laptop"];
+                };
             };
         };
     };

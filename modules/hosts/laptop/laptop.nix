@@ -15,21 +15,22 @@
       cloudflare-warp
       packages
       development
-      #cad
+      cad
       mpd
       virtualisation
       flatpak
       fish
       dns
       openssh
+      beets
     ];
 
     nixos = {
       networking.hostName = "nix";
 
       services.logind.settings.Login = {
-          HandleLidSwitch = "ignore";
-          HandleLidSwitchDocked = "ignore";
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchDocked = "ignore";
       };
     };
   };

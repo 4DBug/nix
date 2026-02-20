@@ -1,5 +1,4 @@
-{ den, ... }:
-{
+{ den, ... }: {
   den.aspects.bug = {
     includes = [
       den.provides.primary-user

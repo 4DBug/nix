@@ -7,7 +7,7 @@
 
       stylix = {
         enable = true;
-        autoEnable = true;
+        autoEnable = false;
         polarity = "dark";
 
         # catppuccin mocha

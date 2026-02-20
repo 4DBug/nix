@@ -15,13 +15,14 @@
       #cloudflare-warp
       packages
       development
-      #cad
+      cad
       mpd
       virtualisation
       flatpak
       fish
       dns
       openssh
+      beets
     ];
 
     nixos = {

@@ -2,6 +2,7 @@
 { den, ... }: {
   den.aspects.box = {
     includes = with den.aspects; [
+      den.default
       den.provides.home-manager
       syncthing
       fish
@@ -10,14 +11,15 @@
       searxng
       copyparty
       glances
-      #invidious
+      # invidious
       mailserver
-      matrix
+      #matrix
       redlib
-      sish
+      #sish
       vscode-server
       dns
       openssh
+      gitea
     ];
 
     nixos = {

@@ -39,6 +39,8 @@
               "discord@bug.tools"
               "github@bug.tools"
               "matrix@bug.tools"
+              "fluxer@bug.tools"
+              "git@bug.tools"
             ];
           };
 

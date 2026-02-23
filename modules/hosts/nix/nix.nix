@@ -2,6 +2,7 @@
 {
   den.aspects.nix = {
     includes = with den.aspects; [
+      den.default
       #amdgpu
       cosmic
       firefox
@@ -15,7 +16,7 @@
       #cloudflare-warp
       packages
       development
-      cad
+      #cad
       mpd
       virtualisation
       flatpak

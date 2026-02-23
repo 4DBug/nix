@@ -23,9 +23,9 @@
             passwordFile = "/home/bug/mailserver/bug.passwd";
           };
 
-          sang = {
-            passwordFile = "/home/bug/nix/sang.passwd";
-          };
+          #sang = {
+            #passwordFile = "/home/bug/nix/sang.passwd";
+            #};
         };
 
         groups = {
@@ -48,7 +48,7 @@
           };
 
           "/music" = {
-            path = "/home/bug/Music";
+            path = "/home/bug/Music/TidalScrape/Downloads/";
 
             access = {
               r = "*";
@@ -61,18 +61,18 @@
             };
           };
 
-          "/sang" = {
+          /* "/sang" = {
             path = "/srv/sang";
 
             access = {
-              rw = [ "bug" "sang" ];
+              rw = [ "bug" ]; #"sang" ];
             };
 
             flags = {
               fk = 4;
               scan = 60;
             };
-          };
+          }; */
         };
 
         openFilesLimit = 8192;

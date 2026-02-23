@@ -21,8 +21,9 @@
             "tube.bug.tools" = "http://127.0.0.1:3030";
             "monitor.bug.tools" = "http://127.0.0.1:61208";
             "reddit.bug.tools" = "http://127.0.0.1:8975";
-            "matrix.bug.tools" = "http://127.0.0.1:8008";
-            "bug.tools" = "http://127.0.0.1:8080";
+            #"matrix.bug.tools" = "http://127.0.0.1:8008";
+            #"bug.tools" = "http://127.0.0.1:8080";
+            "git.bug.tools" = "http://127.0.0.1:3000";
           };
         };
       };

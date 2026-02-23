@@ -1,28 +1,28 @@
 
 { den, ... }: {
   den.aspects.laptop = {
-    includes = with den.aspects; [
-      amdgpu
-      cosmic
-      firefox
-      audio
+    includes = [
+      den.default
+      <amdgpu>
+      <cosmic>
+      <firefox>
+      <audio>
 
       den.provides.home-manager
-      stylix
-      #nvidia
-      syncthing
-      swap
-      cloudflare-warp
-      packages
-      development
-      cad
-      mpd
-      virtualisation
-      flatpak
-      fish
-      dns
-      openssh
-      beets
+      <stylix>
+      <syncthing>
+      <swap>
+      <cloudflare-warp>
+      <packages>
+      <development>
+      <cad>
+      <mpd>
+      <virtualisation>
+      <flatpak>
+      <fish>
+      <dns>
+      <openssh>
+      <beets>
     ];
 
     nixos = {

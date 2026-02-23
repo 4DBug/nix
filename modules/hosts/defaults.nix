@@ -1,6 +1,6 @@
 {
   den.default = {
-    nixos = { pkgs, ... }: {
+    nixos = { pkgs, lib, ... }: {
       imports = [
         /etc/nixos/hardware-configuration.nix
       ];
@@ -33,7 +33,7 @@
       };
 
       boot = {
-        kernelPackages = pkgs.linuxPackages_zen;
+        #kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
 
         initrd.checkJournalingFS = false;
 
